@@ -1,9 +1,11 @@
+import 'package:equatable/equatable.dart';
+
 /// This class is used to get energy usage data from the server
-class UsageMonitorResponse {
+class UsageMonitorResponse extends Equatable {
   final DateTime timestamp;
   final int value;
 
-  UsageMonitorResponse({required this.timestamp, required this.value});
+  const UsageMonitorResponse({required this.timestamp, required this.value});
 
   /// [UsageMonitorResponse.fromJson] method is used to convert a json response into
   /// [UsageMonitorResponse] object
@@ -21,4 +23,7 @@ class UsageMonitorResponse {
       'value': value,
     };
   }
+
+  @override
+  List<Object?> get props => [timestamp, value];
 }
