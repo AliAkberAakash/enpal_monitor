@@ -1,5 +1,5 @@
 import 'package:enpal_monitor/features/usage_monitor/domain/entity/usage_monitor_entity.dart';
-import 'package:enpal_monitor/features/usage_monitor/presentation/error/error_keys.dart';
+import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
 import 'package:equatable/equatable.dart';
 
 sealed class UsageMonitorState extends Equatable {
@@ -19,10 +19,10 @@ class UsageMonitorLoadedState extends UsageMonitorState {
 }
 
 class UsageMonitorErrorState extends UsageMonitorState {
-  final ErrorKey errorKey;
+  final BaseError error;
 
-  UsageMonitorErrorState({required this.errorKey});
+  UsageMonitorErrorState({required this.error});
 
   @override
-  List<Object?> get props => [errorKey];
+  List<Object?> get props => [error];
 }
