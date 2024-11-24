@@ -1,99 +1,110 @@
 import 'dart:ui';
 
 // Reference Color Tokens for Light Theme
-const Color cwRefPrimaryLight = Color(0xFF4A672D);
-const Color cwRefOnPrimaryLight = Color(0xFFFFFFFF);
-const Color cwRefPrimaryContainerLight = Color(0xFFFF8945);
-const Color cwRefOnPrimaryContainerLight = Color(0xFF0E2000);
+const Color epRefPrimaryLight = Color(0xFF4169CE);
+const Color epRefSurfaceTintLight = Color(0xFF4F77DD);
+const Color epRefOnPrimaryLight = Color(0xFFFFFFFF);
+const Color epRefPrimaryContainerLight = Color(0xFF6788E6);
+const Color epRefOnPrimaryContainerLight = Color(0xFFFFFFFF);
+const Color epRefSecondaryLight = Color(0xFF4A80CF);
+const Color epRefOnSecondaryLight = Color(0xFFFFFFFF);
+const Color epRefSecondaryContainerLight = Color(0xFFD3E4FF);
+const Color epRefOnSecondaryContainerLight = Color(0xFF001D39);
+const Color epRefTertiaryLight = Color(0xFF755BA4);
+const Color epRefOnTertiaryLight = Color(0xFFFFFFFF);
+const Color epRefTertiaryContainerLight = Color(0xFFEADDFF);
+const Color epRefOnTertiaryContainerLight = Color(0xFFFFFFFF);
+const Color epRefErrorLight = Color(0xFF7F3A3A);
+const Color epRefOnErrorLight = Color(0xFFFFFFFF);
+const Color epRefErrorContainerLight = Color(0xFFFDADA6);
+const Color epRefOnErrorContainerLight = Color(0xFF410002);
+const Color epRefBackgroundLight = Color(0xFFF7FAFF);
+const Color epRefOnBackgroundLight = Color(0xFF181C23);
+const Color epRefSurfaceLight = Color(0xFFF7FBFF);
+const Color epRefOnSurfaceLight = Color(0xFF171B1C);
+const Color epRefSurfaceVariantLight = Color(0xFFE7E0EC);
+const Color epRefOnSurfaceVariantLight = Color(0xFF44474E);
+const Color epRefOutlineLight = Color(0xFF74777F);
+const Color epRefOutlineVariantLight = Color(0xFFC4C6D0);
+const Color epRefShadowLight = Color(0xFF000000);
+const Color epRefScrimLight = Color(0xFF000000);
+const Color epRefInverseSurfaceLight = Color(0xFF2F3033);
+const Color epRefInverseOnSurfaceLight = Color(0xFFF2F2F6);
+const Color epRefInversePrimaryLight = Color(0xFFADC7FF);
+const Color epRefPrimaryFixedLight = Color(0xFFDBE2FF);
+const Color epRefOnPrimaryFixedLight = Color(0xFF00206D);
+const Color epRefPrimaryFixedDimLight = Color(0xFFADC7FF);
+const Color epRefOnPrimaryFixedVariantLight = Color(0xFF254B95);
+const Color epRefSecondaryFixedLight = Color(0xFFDBE2FF);
+const Color epRefOnSecondaryFixedLight = Color(0xFF002267);
+const Color epRefSecondaryFixedDimLight = Color(0xFFADC7FE);
+const Color epRefOnSecondaryFixedVariantLight = Color(0xFF254E85);
+const Color epRefTertiaryFixedLight = Color(0xFFFFDBDC);
+const Color epRefOnTertiaryFixedLight = Color(0xFF1F1D3D);
+const Color epRefTertiaryFixedDimLight = Color(0xFFFFD8BE);
+const Color epRefOnTertiaryFixedVariantLight = Color(0xFF69669A);
+const Color epRefSurfaceDimLight = Color(0xFFD8DDE3);
+const Color epRefSurfaceBrightLight = Color(0xFFF7FBFF);
+const Color epRefSurfaceContainerLowestLight = Color(0xFFFFFFFF);
+const Color epRefSurfaceContainerLowLight = Color(0xFFF2F5FA);
+const Color epRefSurfaceContainerLight = Color(0xFFECEFF4);
+const Color epRefSurfaceContainerHighLight = Color(0xFFE6E9EE);
+const Color epRefSurfaceContainerHighestLight = Color(0xFFE7E0E1);
 
-const Color cwRefSecondaryLight = Color(0xFF4A672D);
-const Color cwRefOnSecondaryLight = Color(0xFFFFFFFF);
-const Color cwRefSecondaryContainerLight = Color(0xFFCBEEA5);
-const Color cwRefOnSecondaryContainerLight = Color(0xFF0E2000);
-
-const Color cwRefTertiaryLight = Color(0xFF3E6837);
-const Color cwRefOnTertiaryLight = Color(0xFFFFFFFF);
-const Color cwRefTertiaryContainerLight = Color(0xFFBFF0B1);
-const Color cwRefOnTertiaryContainerLight = Color(0xFF002201);
-
-const Color cwRefErrorLight = Color(0xFFBA1A1A);
-const Color cwRefOnErrorLight = Color(0xFFFFFFFF);
-const Color cwRefErrorContainerLight = Color(0xFFFFDAD6);
-const Color cwRefOnErrorContainerLight = Color(0xFF410002);
-
-const Color cwRefBackgroundLight = Color(0xFFF9FAEF);
-const Color cwRefOnBackgroundLight = Color(0xFF1A1C16);
-
-const Color cwRefSurfaceLight = Color(0xFFF9FAEF);
-const Color cwRefOnSurfaceLight = Color(0xFF1A1C16);
-const Color cwRefSurfaceVariantLight = Color(0xFFE1E4D5);
-const Color cwRefOnSurfaceVariantLight = Color(0xFF44483D);
-const Color cwRefSurfaceDimLight = Color(0xFFD9DBD0);
-const Color cwRefSurfaceBrightLight = Color(0xFFC4C8BA);
-const Color cwRefSurfaceContainerLowestLight = Color(0xFFFFFFFF);
-const Color cwRefSurfaceContainerLowLight = Color(0xFFF3F5E9);
-const Color cwRefSurfaceContainerLight = Color(0xFFEDEFE4);
-const Color cwRefSurfaceContainerHighLight = Color(0xFFE8E9DE);
-const Color cwRefSurfaceContainerHighestLight = Color(0xFFE2E3D8);
-
-const Color cwRefInverseSurfaceLight = Color(0xFF2F312A);
-const Color cwRefInverseOnSurfaceLight = Color(0xFFF0F2E7);
-const Color cwRefInversePrimaryLight = Color(0xFFB0D18B);
-
-const Color cwRefOutlineLight = Color(0xFF74796C);
-const Color cwRefOutlineVariantLight = Color(0xFFC4C8BA);
-
-const Color cwRefShadowLight = Color(0xFF000000);
-const Color cwRefScrimLight = Color(0xFF000000);
 
 // Reference Color Tokens for Dark Theme
-const Color cwRefPrimaryDark = Color(0xFFB0D18B);
-const Color cwRefOnPrimaryDark = Color(0xFF1D3702);
-const Color cwRefPrimaryContainerDark = Color(0xFFFF8945);
-const Color cwRefOnPrimaryContainerDark = Color(0xFFE2E3D8);
+const Color epRefPrimaryDark = Color(0xFFADC7FF);
+const Color epRefSurfaceTintDark = Color(0xFFADC7FF);
+const Color epRefOnPrimaryDark = Color(0xFF1B3B82);
+const Color epRefPrimaryContainerDark = Color(0xFF6788E6);
+const Color epRefOnPrimaryContainerDark = Color(0xFFFFFFFF);
+const Color epRefSecondaryDark = Color(0xFFADC7FE);
+const Color epRefOnSecondaryDark = Color(0xFF17315D);
+const Color epRefSecondaryContainerDark = Color(0xFF27497B);
+const Color epRefOnSecondaryContainerDark = Color(0xFFD8E2FF);
+const Color epRefTertiaryDark = Color(0xFFFFD8BE);
+const Color epRefOnTertiaryDark = Color(0xFF41435B);
+const Color epRefTertiaryContainerDark = Color(0xFFEADDFF);
+const Color epRefOnTertiaryContainerDark = Color(0xFFFFFFFF);
+const Color epRefErrorDark = Color(0xFFFFB4AB);
+const Color epRefOnErrorDark = Color(0xFF690005);
+const Color epRefErrorContainerDark = Color(0xFF93000A);
+const Color epRefOnErrorContainerDark = Color(0xFFFDADA6);
+const Color epRefBackgroundDark = Color(0xFF12161D);
+const Color epRefOnBackgroundDark = Color(0xFFE2E2E6);
+const Color epRefSurfaceDark = Color(0xFF111518);
+const Color epRefOnSurfaceDark = Color(0xFFE7E0E1);
+const Color epRefSurfaceVariantDark = Color(0xFF44474E);
+const Color epRefOnSurfaceVariantDark = Color(0xFFC4C6D0);
+const Color epRefOutlineDark = Color(0xFF8E9099);
+const Color epRefOutlineVariantDark = Color(0xFF44474E);
+const Color epRefShadowDark = Color(0xFF000000);
+const Color epRefScrimDark = Color(0xFF000000);
+const Color epRefInverseSurfaceDark = Color(0xFFE7E0E1);
+const Color epRefInverseOnSurfaceDark = Color(0xFF2F3033);
+const Color epRefInversePrimaryDark = Color(0xFF4F77DD);
+const Color epRefPrimaryFixedDark = Color(0xFFDBE2FF);
+const Color epRefOnPrimaryFixedDark = Color(0xFF00206D);
+const Color epRefPrimaryFixedDimDark = Color(0xFFADC7FF);
+const Color epRefOnPrimaryFixedVariantDark = Color(0xFF254B95);
+const Color epRefSecondaryFixedDark = Color(0xFFDBE2FF);
+const Color epRefOnSecondaryFixedDark = Color(0xFF002267);
+const Color epRefSecondaryFixedDimDark = Color(0xFFADC7FE);
+const Color epRefOnSecondaryFixedVariantDark = Color(0xFF254E85);
+const Color epRefTertiaryFixedDark = Color(0xFFFFDBDC);
+const Color epRefOnTertiaryFixedDark = Color(0xFF1F1D3D);
+const Color epRefTertiaryFixedDimDark = Color(0xFFFFD8BE);
+const Color epRefOnTertiaryFixedVariantDark = Color(0xFF69669A);
+const Color epRefSurfaceDimDark = Color(0xFF111518);
+const Color epRefSurfaceBrightDark = Color(0xFF363A39);
+const Color epRefSurfaceContainerLowestDark = Color(0xFF0D0F0E);
+const Color epRefSurfaceContainerLowDark = Color(0xFF171B1C);
+const Color epRefSurfaceContainerDark = Color(0xFF1B1F20);
+const Color epRefSurfaceContainerHighDark = Color(0xFF252929);
+const Color epRefSurfaceContainerHighestDark = Color(0xFF303535);
 
-const Color cwRefSecondaryDark = Color(0xFFB0D18B);
-const Color cwRefOnSecondaryDark = Color(0xFF1E3702);
-const Color cwRefSecondaryContainerDark = Color(0xFF334E17);
-const Color cwRefOnSecondaryContainerDark = Color(0xFFCBEEA5);
+const Color epRefFunkyLight = Color(0xFFFEB5FF);
+const Color epRefOnFunkyLight = Color(0xFF34374A);
 
-const Color cwRefTertiaryDark = Color(0xFFA4D397);
-const Color cwRefOnTertiaryDark = Color(0xFF0F380D);
-const Color cwRefTertiaryContainerDark = Color(0xFF275021);
-const Color cwRefOnTertiaryContainerDark = Color(0xFFBFF0B1);
-
-const Color cwRefErrorDark = Color(0xFFFFB4AB);
-const Color cwRefOnErrorDark = Color(0xFF690005);
-const Color cwRefErrorContainerDark = Color(0xFF93000A);
-const Color cwRefOnErrorContainerDark = Color(0xFFFFDAD6);
-
-const Color cwRefBackgroundDark = Color(0xFF12140E);
-const Color cwRefOnBackgroundDark = Color(0xFFE2E3D8);
-
-const Color cwRefSurfaceDark = Color(0xFF12140E);
-const Color cwRefOnSurfaceDark = Color(0xFFE2E3D8);
-const Color cwRefSurfaceVariantDark = Color(0xFF44483D);
-const Color cwRefOnSurfaceVariantDark = Color(0xFFC4C8BA);
-const Color cwRefSurfaceDimDark = Color(0xFF12140E);
-const Color cwRefSurfaceBrightDark = Color(0xFF373A33);
-const Color cwRefSurfaceContainerLowestDark = Color(0xFF0C0F09);
-const Color cwRefSurfaceContainerLowDark = Color(0xFF1A1C16);
-const Color cwRefSurfaceContainerDark = Color(0xFF1E211A);
-const Color cwRefSurfaceContainerHighDark = Color(0xFF282B24);
-const Color cwRefSurfaceContainerHighestDark = Color(0xFF33362E);
-
-const Color cwRefInverseSurfaceDark = Color(0xFFE2E3D8);
-const Color cwRefInverseOnSurfaceDark = Color(0xFF2F312A);
-const Color cwRefInversePrimaryDark = Color(0xFF4A672D);
-
-const Color cwRefOutlineDark = Color(0xFF8E9285);
-const Color cwRefOutlineVariantDark = Color(0xFF44483D);
-
-const Color cwRefShadowDark = Color(0xFF000000);
-const Color cwRefScrimDark = Color(0xFF000000);
-
-const Color cwRefFunkyLight = Color(0xFFFEB5FF);
-const Color cwRefOnFunkyLight = Color(0xFF34374A);
-
-const Color cwRefFunkyDark = Color(0xFF755375);
-const Color cwRefOnFunkyDark = Color(0xFFE1E4F5);
+const Color epRefFunkyDark = Color(0xFF755375);
+const Color epRefOnFunkyDark = Color(0xFFE1E4F5);

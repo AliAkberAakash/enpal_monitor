@@ -4,49 +4,49 @@ import 'package:enpal_design_system/tokens/color/reference_tokens.dart';
 
 
 // System Color Tokens for Light Theme
-const Color cwSystemPrimaryLight = cwRefPrimaryLight;
-const Color cwSystemOnPrimaryLight = cwRefOnPrimaryLight;
-const Color cwSystemPrimaryContainerLight = cwRefPrimaryContainerLight;
-const Color cwSystemOnPrimaryContainerLight = cwRefOnPrimaryContainerLight;
+const Color epSystemPrimaryLight = epRefPrimaryLight;
+const Color epSystemOnPrimaryLight = epRefOnPrimaryLight;
+const Color epSystemPrimaryContainerLight = epRefPrimaryContainerLight;
+const Color epSystemOnPrimaryContainerLight = epRefOnPrimaryContainerLight;
 
-const Color cwSystemSecondaryLight = cwRefSecondaryLight;
-const Color cwSystemOnSecondaryLight = cwRefOnSecondaryLight;
-const Color cwSystemSecondaryContainerLight = cwRefSecondaryContainerLight;
-const Color cwSystemOnSecondaryContainerLight = cwRefOnSecondaryContainerLight;
+const Color epSystemSecondaryLight = epRefSecondaryLight;
+const Color epSystemOnSecondaryLight = epRefOnSecondaryLight;
+const Color epSystemSecondaryContainerLight = epRefSecondaryContainerLight;
+const Color epSystemOnSecondaryContainerLight = epRefOnSecondaryContainerLight;
 
-const Color cwSystemTertiaryLight = cwRefTertiaryLight;
-const Color cwSystemOnTertiaryLight = cwRefOnTertiaryLight;
-const Color cwSystemTertiaryContainerLight = cwRefTertiaryContainerLight;
-const Color cwSystemOnTertiaryContainerLight = cwRefOnTertiaryContainerLight;
+const Color epSystemTertiaryLight = epRefTertiaryLight;
+const Color epSystemOnTertiaryLight = epRefOnTertiaryLight;
+const Color epSystemTertiaryContainerLight = epRefTertiaryContainerLight;
+const Color epSystemOnTertiaryContainerLight = epRefOnTertiaryContainerLight;
 
-const Color cwSystemErrorLight = cwRefErrorLight;
-const Color cwSystemOnErrorLight = cwRefOnErrorLight;
-const Color cwSystemErrorContainerLight = cwRefErrorContainerLight;
-const Color cwSystemOnErrorContainerLight = cwRefOnErrorContainerLight;
+const Color epSystemErrorLight = epRefErrorLight;
+const Color epSystemOnErrorLight = epRefOnErrorLight;
+const Color epSystemErrorContainerLight = epRefErrorContainerLight;
+const Color epSystemOnErrorContainerLight = epRefOnErrorContainerLight;
 
-const Color cwSystemBackgroundLight = cwRefBackgroundLight;
-const Color cwSystemOnBackgroundLight = cwRefOnBackgroundLight;
+const Color epSystemBackgroundLight = epRefBackgroundLight;
+const Color epSystemOnBackgroundLight = epRefOnBackgroundLight;
 
-const Color cwSystemSurfaceLight = cwRefSurfaceLight;
-const Color cwSystemOnSurfaceLight = cwRefOnSurfaceLight;
-const Color cwSystemSurfaceVariantLight = cwRefSurfaceVariantLight;
-const Color cwSystemOnSurfaceVariantLight = cwRefOnSurfaceVariantLight;
-const Color cwSystemSurfaceDimLight = cwRefSurfaceDimLight;
-const Color cwSystemSurfaceBrightLight = cwRefSurfaceBrightLight;
-const Color cwSystemSurfaceContainerLowestLight =
-    cwRefSurfaceContainerLowestLight;
-const Color cwSystemSurfaceContainerLowLight = cwRefSurfaceContainerLowLight;
-const Color cwSystemSurfaceContainerLight = cwRefSurfaceContainerLight;
-const Color cwSystemSurfaceContainerHighLight = cwRefSurfaceContainerHighLight;
-const Color cwSystemSurfaceContainerHighestLight =
-    cwRefSurfaceContainerHighestLight;
+const Color epSystemSurfaceLight = epRefSurfaceLight;
+const Color epSystemOnSurfaceLight = epRefOnSurfaceLight;
+const Color epSystemSurfaceVariantLight = epRefSurfaceVariantLight;
+const Color epSystemOnSurfaceVariantLight = epRefOnSurfaceVariantLight;
+const Color epSystemSurfaceDimLight = epRefSurfaceDimLight;
+const Color epSystemSurfaceBrightLight = epRefSurfaceBrightLight;
+const Color epSystemSurfaceContainerLowestLight =
+    epRefSurfaceContainerLowestLight;
+const Color epSystemSurfaceContainerLowLight = epRefSurfaceContainerLowLight;
+const Color epSystemSurfaceContainerLight = epRefSurfaceContainerLight;
+const Color epSystemSurfaceContainerHighLight = epRefSurfaceContainerHighLight;
+const Color epSystemSurfaceContainerHighestLight =
+    epRefSurfaceContainerHighestLight;
 
-const Color cwSystemInverseSurfaceLight = cwRefInverseSurfaceLight;
-const Color cwSystemInverseOnSurfaceLight = cwRefInverseOnSurfaceLight;
-const Color cwSystemInversePrimaryLight = cwRefInversePrimaryLight;
+const Color epSystemInverseSurfaceLight = epRefInverseSurfaceLight;
+const Color epSystemInverseOnSurfaceLight = epRefInverseOnSurfaceLight;
+const Color epSystemInversePrimaryLight = epRefInversePrimaryLight;
 
-const Color cwSystemOutlineLight = cwRefOutlineLight;
-const Color cwSystemOutlineVariantLight = cwRefOutlineVariantLight;
+const Color epSystemOutlineLight = epRefOutlineLight;
+const Color epSystemOutlineVariantLight = epRefOutlineVariantLight;
 
-const Color cwSystemShadowLight = cwRefShadowLight;
-const Color cwSystemScrimLight = cwRefScrimLight;
+const Color epSystemShadowLight = epRefShadowLight;
+const Color epSystemScrimLight = epRefScrimLight;

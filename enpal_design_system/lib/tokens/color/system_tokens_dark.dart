@@ -4,49 +4,49 @@ import 'package:enpal_design_system/tokens/color/reference_tokens.dart';
 
 
 // System Color Tokens for Dark Theme
-const Color cwSystemPrimaryDark = cwRefPrimaryDark;
-const Color cwSystemOnPrimaryDark = cwRefOnPrimaryDark;
-const Color cwSystemPrimaryContainerDark = cwRefPrimaryContainerDark;
-const Color cwSystemOnPrimaryContainerDark = cwRefOnPrimaryContainerDark;
+const Color epSystemPrimaryDark = epRefPrimaryDark;
+const Color epSystemOnPrimaryDark = epRefOnPrimaryDark;
+const Color epSystemPrimaryContainerDark = epRefPrimaryContainerDark;
+const Color epSystemOnPrimaryContainerDark = epRefOnPrimaryContainerDark;
 
-const Color cwSystemSecondaryDark = cwRefSecondaryDark;
-const Color cwSystemOnSecondaryDark = cwRefOnSecondaryDark;
-const Color cwSystemSecondaryContainerDark = cwRefSecondaryContainerDark;
-const Color cwSystemOnSecondaryContainerDark = cwRefOnSecondaryContainerDark;
+const Color epSystemSecondaryDark = epRefSecondaryDark;
+const Color epSystemOnSecondaryDark = epRefOnSecondaryDark;
+const Color epSystemSecondaryContainerDark = epRefSecondaryContainerDark;
+const Color epSystemOnSecondaryContainerDark = epRefOnSecondaryContainerDark;
 
-const Color cwSystemTertiaryDark = cwRefTertiaryDark;
-const Color cwSystemOnTertiaryDark = cwRefOnTertiaryDark;
-const Color cwSystemTertiaryContainerDark = cwRefTertiaryContainerDark;
-const Color cwSystemOnTertiaryContainerDark = cwRefOnTertiaryContainerDark;
+const Color epSystemTertiaryDark = epRefTertiaryDark;
+const Color epSystemOnTertiaryDark = epRefOnTertiaryDark;
+const Color epSystemTertiaryContainerDark = epRefTertiaryContainerDark;
+const Color epSystemOnTertiaryContainerDark = epRefOnTertiaryContainerDark;
 
-const Color cwSystemErrorDark = cwRefErrorDark;
-const Color cwSystemOnErrorDark = cwRefOnErrorDark;
-const Color cwSystemErrorContainerDark = cwRefErrorContainerDark;
-const Color cwSystemOnErrorContainerDark = cwRefOnErrorContainerDark;
+const Color epSystemErrorDark = epRefErrorDark;
+const Color epSystemOnErrorDark = epRefOnErrorDark;
+const Color epSystemErrorContainerDark = epRefErrorContainerDark;
+const Color epSystemOnErrorContainerDark = epRefOnErrorContainerDark;
 
-const Color cwSystemBackgroundDark = cwRefBackgroundDark;
-const Color cwSystemOnBackgroundDark = cwRefOnBackgroundDark;
+const Color epSystemBackgroundDark = epRefBackgroundDark;
+const Color epSystemOnBackgroundDark = epRefOnBackgroundDark;
 
-const Color cwSystemSurfaceDark = cwRefSurfaceDark;
-const Color cwSystemOnSurfaceDark = cwRefOnSurfaceDark;
-const Color cwSystemSurfaceVariantDark = cwRefSurfaceVariantDark;
-const Color cwSystemOnSurfaceVariantDark = cwRefOnSurfaceVariantDark;
-const Color cwSystemSurfaceDimDark = cwRefSurfaceDimDark;
-const Color cwSystemSurfaceBrightDark = cwRefSurfaceBrightDark;
-const Color cwSystemSurfaceContainerLowestDark =
-    cwRefSurfaceContainerLowestDark;
-const Color cwSystemSurfaceContainerLowDark = cwRefSurfaceContainerLowDark;
-const Color cwSystemSurfaceContainerDark = cwRefSurfaceContainerDark;
-const Color cwSystemSurfaceContainerHighDark = cwRefSurfaceContainerHighDark;
-const Color cwSystemSurfaceContainerHighestDark =
-    cwRefSurfaceContainerHighestDark;
+const Color epSystemSurfaceDark = epRefSurfaceDark;
+const Color epSystemOnSurfaceDark = epRefOnSurfaceDark;
+const Color epSystemSurfaceVariantDark = epRefSurfaceVariantDark;
+const Color epSystemOnSurfaceVariantDark = epRefOnSurfaceVariantDark;
+const Color epSystemSurfaceDimDark = epRefSurfaceDimDark;
+const Color epSystemSurfaceBrightDark = epRefSurfaceBrightDark;
+const Color epSystemSurfaceContainerLowestDark =
+    epRefSurfaceContainerLowestDark;
+const Color epSystemSurfaceContainerLowDark = epRefSurfaceContainerLowDark;
+const Color epSystemSurfaceContainerDark = epRefSurfaceContainerDark;
+const Color epSystemSurfaceContainerHighDark = epRefSurfaceContainerHighDark;
+const Color epSystemSurfaceContainerHighestDark =
+    epRefSurfaceContainerHighestDark;
 
-const Color cwSystemInverseSurfaceDark = cwRefInverseSurfaceDark;
-const Color cwSystemInverseOnSurfaceDark = cwRefInverseOnSurfaceDark;
-const Color cwSystemInversePrimaryDark = cwRefInversePrimaryDark;
+const Color epSystemInverseSurfaceDark = epRefInverseSurfaceDark;
+const Color epSystemInverseOnSurfaceDark = epRefInverseOnSurfaceDark;
+const Color epSystemInversePrimaryDark = epRefInversePrimaryDark;
 
-const Color cwSystemOutlineDark = cwRefOutlineDark;
-const Color cwSystemOutlineVariantDark = cwRefOutlineVariantDark;
+const Color epSystemOutlineDark = epRefOutlineDark;
+const Color epSystemOutlineVariantDark = epRefOutlineVariantDark;
 
-const Color cwSystemShadowDark = cwRefShadowDark;
-const Color cwSystemScrimDark = cwRefScrimDark;
+const Color epSystemShadowDark = epRefShadowDark;
+const Color epSystemScrimDark = epRefScrimDark;
