@@ -69,7 +69,9 @@ void main() {
           ),
         );
 
-        final result = await networkClient.get(testRequest);
+        final result = await networkClient.get(
+          request: testRequest,
+        );
 
         expect(result.body, {"key": "value"});
         expect(
@@ -109,7 +111,10 @@ void main() {
         );
 
         expect(
-            networkClient.get(testRequest), throwsA(isA<NetworkException>()));
+            networkClient.get(
+              request: testRequest,
+            ),
+            throwsA(isA<NetworkException>()));
         verify(
           () => mockDio.get(
             testRequest.url,
@@ -133,7 +138,10 @@ void main() {
           ),
         );
 
-        expect(() => networkClient.get(testRequest),
+        expect(
+            () => networkClient.get(
+                  request: testRequest,
+                ),
             throwsA(isA<NetworkTimeoutException>()));
 
         verify(
@@ -159,7 +167,10 @@ void main() {
           ),
         );
 
-        expect(() => networkClient.get(testRequest),
+        expect(
+            () => networkClient.get(
+                  request: testRequest,
+                ),
             throwsA(isA<NetworkTimeoutException>()));
 
         verify(
@@ -185,7 +196,10 @@ void main() {
           ),
         );
 
-        expect(() => networkClient.get(testRequest),
+        expect(
+            () => networkClient.get(
+                  request: testRequest,
+                ),
             throwsA(isA<NetworkException>()));
 
         verify(
@@ -218,7 +232,9 @@ void main() {
         );
 
         expect(
-          () => networkClient.get(testRequest),
+          () => networkClient.get(
+            request: testRequest,
+          ),
           throwsA(
             isA<ServerException>()
                 .having((e) => e.statusCode, "statusCode", 500)
@@ -257,7 +273,9 @@ void main() {
         );
 
         expect(
-            () => networkClient.get(testRequest),
+            () => networkClient.get(
+                  request: testRequest,
+                ),
             throwsA(
               isA<ServerException>()
                   .having((e) => e.statusCode, "statusCode", 400)

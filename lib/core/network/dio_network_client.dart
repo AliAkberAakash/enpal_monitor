@@ -6,10 +6,15 @@ import 'package:enpal_monitor/core/network/network_client.dart';
 import 'package:enpal_monitor/core/network/network_request.dart';
 import 'package:enpal_monitor/core/network/network_response.dart';
 
+/// Implementation of the [NetworkClient] interface using [Dio]
 class DioNetworkClient implements NetworkClient {
   final Dio _dio;
   final List<Interceptor> interceptors;
 
+  /// Creates a new instance of [DioNetworkClient]
+  /// It's better to have a singleton [dio] object and pass it here via
+  /// dependency injection.
+  /// Sets any interceptors passed to it
   DioNetworkClient(
     this._dio, {
     this.interceptors = const [],
@@ -19,8 +24,12 @@ class DioNetworkClient implements NetworkClient {
     }
   }
 
+  /// Method to execute [GET] requests
+  /// If the response is success it wraps the response into a [NetworkResponse] and returns it
+  /// In case of failure it throws appropriate exceptions
+  /// Check each of the exception classes to know more about them
   @override
-  Future<NetworkResponse> get(NetworkRequest request) async {
+  Future<NetworkResponse> get({required final NetworkRequest request}) async {
     try {
       final response = await _dio.get(
         request.url,
@@ -37,11 +46,15 @@ class DioNetworkClient implements NetworkClient {
     }
   }
 
-  Options _createDioOptions(NetworkRequest request) => Options(
+  /// Creates dio options with headers sent via the [NetworkRequest]
+  Options _createDioOptions(final NetworkRequest request) => Options(
         headers: request.headers ?? {},
       );
 
-  NetworkResponse _handleResponse(Response<dynamic> response) {
+  /// Check if the response is valid
+  /// If the response code is not in allowed range then throw [ServerException]
+  /// Here any response code other than [200-299] is considered invalid
+  NetworkResponse _handleResponse(final Response<dynamic> response) {
     if (_isInvalidStatusCode(response.statusCode)) {
       throw ServerException(
         statusCode: response.statusCode,
@@ -55,11 +68,13 @@ class DioNetworkClient implements NetworkClient {
     );
   }
 
-  bool _isInvalidStatusCode(int? statusCode) {
+  /// Method to check if statusCode returned by the server is valid or not.
+  bool _isInvalidStatusCode(final int? statusCode) {
     return statusCode == null || statusCode < 200 || statusCode >= 300;
   }
 
-  BaseException _handleDioExceptions(DioException error) {
+  /// handle the exception types to throw a proper exception
+  BaseException _handleDioExceptions(final DioException error) {
     if (error.response != null) {
       throw ServerException(
         statusCode: error.response?.statusCode,
