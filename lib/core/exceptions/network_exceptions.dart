@@ -6,6 +6,6 @@ class NetworkException extends BaseException {
 }
 
 /// Represents timeout exceptions, for example, slow connection or no internet
-class NetworkTimeoutException extends NetworkException {
+class NetworkTimeoutException extends BaseException {
   const NetworkTimeoutException();
 }

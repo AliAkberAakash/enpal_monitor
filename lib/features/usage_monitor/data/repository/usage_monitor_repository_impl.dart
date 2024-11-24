@@ -5,7 +5,7 @@ import 'package:enpal_monitor/features/usage_monitor/domain/repository/usage_mon
 
 class UsageMonitorRepositoryImpl implements UsageMonitorRepository {
   final UsageMonitorNetworkDataSource _networkDataSource;
-  final UsageMonitorEntityMapper _usageMonitorEntityMapper;
+  final UsageMonitorMapper _usageMonitorEntityMapper;
 
   UsageMonitorRepositoryImpl(
     this._networkDataSource,
@@ -25,8 +25,8 @@ class UsageMonitorRepositoryImpl implements UsageMonitorRepository {
     // TODO: save data in local and always return from cache
 
     final entityList = responseList
-        .map((response) =>
-            _usageMonitorEntityMapper.fromUsageMonitorNetworkResponse(response))
+        .map((response) => _usageMonitorEntityMapper
+            .entityFromUsageMonitorNetworkResponse(response))
         .toList();
 
     return entityList;
