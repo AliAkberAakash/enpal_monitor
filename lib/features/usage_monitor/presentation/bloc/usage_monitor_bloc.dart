@@ -21,23 +21,35 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
     final Emitter<UsageMonitorState> emit,
   ) async {
     emit(UsageMonitorLoadingState());
-    try {
-      final response = await usageMonitorRepository.getUsageMonitorData(
-        date: event.date,
-        type: event.type,
-      );
-      emit(
-        UsageMonitorLoadedState(
-          usageData: response,
-        ),
-      );
-    } on BaseError catch (e) {
+    runZonedGuarded(
+      () async {
+        final response = await usageMonitorRepository.getUsageMonitorData(
+          date: event.date,
+          type: event.type,
+        );
+        emit(
+          UsageMonitorLoadedState(
+            usageData: response,
+          ),
+        );
+      },
+      (Object error, StackTrace stack) => _handleError(emit, error, stack),
+    );
+  }
+
+  FutureOr<void> _onDeleteAllUsageMonitorEvent(
+    final DeleteAllUsageMonitorEvent event,
+    final Emitter<UsageMonitorState> emit,
+  ) {}
+
+  void _handleError(Emitter emit, Object error, StackTrace stack) {
+    if (error is BaseError) {
       emit(
         UsageMonitorErrorState(
-          error: e,
+          error: error,
         ),
       );
-    } catch (e) {
+    } else {
       emit(
         UsageMonitorErrorState(
           error: CommonError(),
@@ -45,9 +57,4 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
       );
     }
   }
-
-  FutureOr<void> _onDeleteAllUsageMonitorEvent(
-    final DeleteAllUsageMonitorEvent event,
-    final Emitter<UsageMonitorState> emit,
-  ) {}
 }
