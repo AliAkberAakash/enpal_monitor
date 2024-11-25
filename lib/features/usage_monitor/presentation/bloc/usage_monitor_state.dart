@@ -21,7 +21,7 @@ class UsageMonitorLoadedState extends UsageMonitorState {
 class UsageMonitorDeletedState extends UsageMonitorState {
   final bool success;
 
-  UsageMonitorDeletedState(this.success);
+  UsageMonitorDeletedState({required this.success});
 
   @override
   List<Object?> get props => [success];

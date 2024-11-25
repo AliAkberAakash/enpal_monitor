@@ -45,7 +45,7 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
       () async {
         final result =
             await usageMonitorRepository.deleteDeleteAllUsageMonitorData();
-        emit(UsageMonitorDeletedState(result));
+        emit(UsageMonitorDeletedState(success: result));
       },
       (Object error, StackTrace stack) => _handleError(emit, error, stack),
     );

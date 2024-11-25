@@ -215,5 +215,109 @@ void main() {
         );
       });
     });
+
+    group(DeleteAllUsageMonitorEvent, () {
+      group("Repository throws Exception", () {
+        blocTest(
+          "Emits [UsageMonitorErrorState(error: CommonError())] when repository throws CommonError",
+          build: () => usageMonitorBloc,
+          setUp: () {
+            when(
+              () =>
+                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+            ).thenThrow(CommonError());
+          },
+          act: (bloc) => bloc.add(
+            DeleteAllUsageMonitorEvent(),
+          ),
+          expect: () => <UsageMonitorState>[
+            UsageMonitorErrorState(error: CommonError()),
+          ],
+          verify: (_) {
+            verify(() => mockUsageMonitorRepository
+                .deleteDeleteAllUsageMonitorData()).called(1);
+          },
+        );
+
+        blocTest(
+          "Emits [UsageMonitorErrorState(error: CommonError())] when repository throws any other exception",
+          build: () => usageMonitorBloc,
+          setUp: () {
+            when(
+              () =>
+                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+            ).thenThrow(SocketException(""));
+          },
+          act: (bloc) => bloc.add(
+            DeleteAllUsageMonitorEvent(),
+          ),
+          expect: () => <UsageMonitorState>[
+            UsageMonitorErrorState(error: CommonError()),
+          ],
+          verify: (_) {
+            verify(
+              () =>
+                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+            ).called(1);
+          },
+        );
+      });
+
+      group("Repository returns success Response", () {
+        blocTest(
+          "Emits [UsageMonitorLoadedState] when repository returns true",
+          build: () => usageMonitorBloc,
+          setUp: () {
+            when(
+              () =>
+                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+            ).thenAnswer(
+              (_) async => true,
+            );
+          },
+          act: (bloc) => bloc.add(
+            DeleteAllUsageMonitorEvent(),
+          ),
+          expect: () => <UsageMonitorState>[
+            UsageMonitorDeletedState(
+              success: true,
+            ),
+          ],
+          verify: (_) {
+            verify(
+              () =>
+                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+            ).called(1);
+          },
+        );
+
+        blocTest(
+          "Emits [UsageMonitorLoadedState] when repository returns false",
+          build: () => usageMonitorBloc,
+          setUp: () {
+            when(
+              () =>
+                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+            ).thenAnswer(
+              (_) async => false,
+            );
+          },
+          act: (bloc) => bloc.add(
+            DeleteAllUsageMonitorEvent(),
+          ),
+          expect: () => <UsageMonitorState>[
+            UsageMonitorDeletedState(
+              success: false,
+            ),
+          ],
+          verify: (_) {
+            verify(
+              () =>
+                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+            ).called(1);
+          },
+        );
+      });
+    });
   });
 }
