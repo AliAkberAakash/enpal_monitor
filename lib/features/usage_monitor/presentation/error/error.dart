@@ -13,7 +13,7 @@ class ServerError extends BaseError {
   final int? statusCode;
   final String? statusMessage;
 
-  ServerError(this.statusCode, this.statusMessage);
+  ServerError({this.statusCode, this.statusMessage});
 
   @override
   List<Object?> get props => [statusCode, statusMessage];

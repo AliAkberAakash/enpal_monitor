@@ -27,7 +27,8 @@ class UsageMonitorEntityMapperImpl implements UsageMonitorMapper {
     switch (e.runtimeType) {
       case const (ServerException):
         e as ServerException;
-        return ServerError(e.statusCode, e.statusMessage);
+        return ServerError(
+            statusCode: e.statusCode, statusMessage: e.statusMessage);
       case const (NetworkException):
         return NetworkError();
       case const (NetworkTimeoutException):
