@@ -7,7 +7,7 @@ class EnpalMonitorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Current Weather',
+      title: 'Enpal Monitor',
       theme: theme.light(),
       darkTheme: theme.dark(),
       debugShowCheckedModeBanner: false,

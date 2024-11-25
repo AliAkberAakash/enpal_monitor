@@ -29,7 +29,7 @@ void main() {
   });
 
   group("UsageMonitorNetworkDataSourceImpl", () {
-    group("getWeatherResponse", () {
+    group("getUsageMonitorResponse", () {
       const mockNetworkRequest = NetworkRequest(
         url: "monitoring",
         queryParams: {

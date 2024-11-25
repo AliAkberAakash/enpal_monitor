@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 const int _networkTimeoutDurationSeconds = 10;
-const String _stagingUrl = "https://api.openweathermap.org/data/2.5/";
-const String _prodUrl = "https://api.openweathermap.org/data/2.5/";
+const String _stagingUrl = "http://localhost:3000";
+const String _prodUrl = "http://localhost:3000";
 const String _contentTypeJson = 'application/json';
 
 /// Here we could change the baseUrl based on the

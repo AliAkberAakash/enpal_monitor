@@ -30,11 +30,13 @@ class UsageMonitorNetworkDataSourceImpl
       final response = await _networkClient.get(
         request: networkRequest,
       );
-      final List<UsageMonitorResponse> weatherList = (response.body as List)
-          .map((weatherData) => UsageMonitorResponse.fromJson(weatherData))
-          .toList();
+      final List<UsageMonitorResponse> usageMonitorList =
+          (response.body as List)
+              .map((usageMonitorData) =>
+                  UsageMonitorResponse.fromJson(usageMonitorData))
+              .toList();
 
-      return weatherList;
+      return usageMonitorList;
     } catch (e) {
       _logger.d(e.toString());
       rethrow;
