@@ -35,4 +35,10 @@ class UsageMonitorRepositoryImpl implements UsageMonitorRepository {
       throw _usageMonitorEntityMapper.errorFromException(e);
     }
   }
+
+  @override
+  Future<bool> deleteDeleteAllUsageMonitorData() async {
+    // TODO: delete all local cache
+    return true;
+  }
 }

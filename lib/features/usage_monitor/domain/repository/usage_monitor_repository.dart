@@ -5,4 +5,6 @@ abstract class UsageMonitorRepository {
     required final String date,
     required final String type,
   });
+
+  Future<bool> deleteDeleteAllUsageMonitorData();
 }

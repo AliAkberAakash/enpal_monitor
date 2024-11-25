@@ -40,7 +40,16 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
   FutureOr<void> _onDeleteAllUsageMonitorEvent(
     final DeleteAllUsageMonitorEvent event,
     final Emitter<UsageMonitorState> emit,
-  ) {}
+  ) {
+    runZonedGuarded(
+      () async {
+        final result =
+            await usageMonitorRepository.deleteDeleteAllUsageMonitorData();
+        emit(UsageMonitorDeletedState(result));
+      },
+      (Object error, StackTrace stack) => _handleError(emit, error, stack),
+    );
+  }
 
   void _handleError(Emitter emit, Object error, StackTrace stack) {
     if (error is BaseError) {
