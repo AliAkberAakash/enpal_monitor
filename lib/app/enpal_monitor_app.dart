@@ -1,4 +1,5 @@
 import 'package:enpal_design_system/styles/theme/theme.dart';
+import 'package:enpal_monitor/features/usage_monitor/presentation/ui/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class EnpalMonitorApp extends StatelessWidget {
@@ -11,11 +12,7 @@ class EnpalMonitorApp extends StatelessWidget {
       theme: theme.light(),
       darkTheme: theme.dark(),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text("Hello World!"),
-        ),
-      ),
+      home: HomeScreen(),
     );
   }
 }

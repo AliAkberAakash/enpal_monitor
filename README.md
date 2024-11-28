@@ -2,15 +2,17 @@
 
 An application for data monitoring of solar energy
 
-## Getting Started
+# Installation
+```bash
+dart pub add --dev dart_pre_commit
+```
+Run the following command to install the package:
+```bash
+dart run lib/tools/setup_git_hooks.dart
+```
 
-This project is a starting point for a Flutter application.
+To update the yaml file, run the following command:
+```bash
+flutter pub upgrade --major-versions --tighten
+```
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
