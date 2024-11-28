@@ -8,14 +8,14 @@ const double maxYAxisValue = 10000;
 const double minYAxisValue = 0;
 const underGraphGradient = LinearGradient(
   colors: [
-    Color(0x66009688),
     Color(0x66448AFF),
+    Color(0x66009688),
   ],
 );
 const lineGradient = LinearGradient(
   colors: [
-    Color(0xFF009688),
     Color(0xFF448AFF),
+    Color(0xFF009688),
   ],
 );
 

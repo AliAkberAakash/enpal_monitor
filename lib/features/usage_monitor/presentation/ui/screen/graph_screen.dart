@@ -17,10 +17,14 @@ class GraphScreen extends StatelessWidget {
     final theme = context.theme;
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: theme.textTheme.titleMedium,
+          style: theme.textTheme.titleLarge,
+        ),
+        SizedBox(
+          height: theme.spacingTokens.cwSpacing16,
         ),
         AspectRatio(
           aspectRatio: aspectRatio,

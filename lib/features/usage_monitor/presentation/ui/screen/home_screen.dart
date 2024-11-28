@@ -40,6 +40,21 @@ class _HomeScreenState extends State<HomeScreen>
 
     return Scaffold(
       appBar: AppBar(
+        title: Text("Enpal Monitor"),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.calendar_today,
+            ),
+          ),
+          IconButton(
+            onPressed: _showWarningDialog,
+            icon: Icon(
+              Icons.delete_outline_outlined,
+            ),
+          ),
+        ],
         bottom: TabBar(
           controller: _tabController,
           tabs: tabs,
@@ -49,13 +64,51 @@ class _HomeScreenState extends State<HomeScreen>
         padding: EdgeInsets.all(theme.spacingTokens.cwSpacing8),
         child: TabBarView(
           controller: _tabController,
-          children: tabs.map((Tab tab) {
-            return GraphScreen(
-              title: tab.text ?? "",
-            );
-          }).toList(),
+          children: [
+            GraphScreen(
+              title: "Solar Generation",
+            ),
+            GraphScreen(
+              title: "Home Consumption",
+            ),
+            GraphScreen(
+              title: "Battery Consumption",
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showWarningDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Are you sure you want to delete all data?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
