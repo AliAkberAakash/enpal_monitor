@@ -78,7 +78,7 @@ class GraphWidget extends StatelessWidget {
             sideTitles: SideTitles(
               reservedSize: 30,
               showTitles: true,
-              interval: 3600,
+              interval: 3600 * 4,
               getTitlesWidget: (value, meta) => XAxisTitleWidget(
                 value: value,
                 meta: meta,
@@ -127,10 +127,13 @@ class GraphWidget extends StatelessWidget {
 
   List<FlSpot> _getSpotsWatt() {
     return points
+        .asMap()
+        .entries
+        .where((entry) => entry.key % 9 == 0)
         .map(
           (point) => FlSpot(
-            point.timestamp.toDouble(),
-            point.value.toDouble(),
+            point.value.timestamp.toDouble(),
+            point.value.value.toDouble(),
           ),
         )
         .toList();

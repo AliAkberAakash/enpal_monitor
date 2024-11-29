@@ -48,7 +48,7 @@ class GraphScreen extends StatelessWidget {
               } else {
                 // todo show error
                 return Center(
-                  child: Text("Something went wrong"),
+                  child: Text("Failed to load graph data"),
                 );
               }
             },

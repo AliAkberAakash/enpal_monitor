@@ -21,37 +21,35 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
     final Emitter<UsageMonitorState> emit,
   ) async {
     emit(UsageMonitorLoadingState());
-    runZonedGuarded(
-      () async {
-        final response = await usageMonitorRepository.getUsageMonitorData(
-          date: event.date,
-          type: event.type,
-        );
-        emit(
-          UsageMonitorLoadedState(
-            usageData: response,
-          ),
-        );
-      },
-      (Object error, StackTrace stack) => _handleError(emit, error, stack),
-    );
+    try {
+      final response = await usageMonitorRepository.getUsageMonitorData(
+        date: event.date,
+        type: event.type,
+      );
+      emit(
+        UsageMonitorLoadedState(
+          usageData: response,
+        ),
+      );
+    } catch (error) {
+      _handleError(emit, error);
+    }
   }
 
   FutureOr<void> _onDeleteAllUsageMonitorEvent(
     final DeleteAllUsageMonitorEvent event,
     final Emitter<UsageMonitorState> emit,
-  ) {
-    runZonedGuarded(
-      () async {
-        final result =
-            await usageMonitorRepository.deleteDeleteAllUsageMonitorData();
-        emit(UsageMonitorDeletedState(success: result));
-      },
-      (Object error, StackTrace stack) => _handleError(emit, error, stack),
-    );
+  ) async {
+    try {
+      final result =
+          await usageMonitorRepository.deleteDeleteAllUsageMonitorData();
+      emit(UsageMonitorDeletedState(success: result));
+    } catch (error) {
+      _handleError(emit, error);
+    }
   }
 
-  void _handleError(Emitter emit, Object error, StackTrace stack) {
+  void _handleError(Emitter emit, Object error) {
     if (error is BaseError) {
       emit(
         UsageMonitorErrorState(
