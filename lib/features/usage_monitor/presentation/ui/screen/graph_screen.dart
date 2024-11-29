@@ -43,6 +43,7 @@ class GraphScreen extends StatelessWidget {
                 );
               } else if (state is UsageMonitorLoadedState) {
                 return GraphWidget(
+                  key: UniqueKey(),
                   points: state.usageData,
                 );
               } else {

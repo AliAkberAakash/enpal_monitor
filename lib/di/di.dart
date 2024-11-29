@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:enpal_monitor/core/network/dio_configuration.dart';
-import 'package:enpal_monitor/core/network/dio_network_client.dart';
 import 'package:enpal_monitor/core/network/network_client.dart';
+import 'package:enpal_monitor/e2e/fake_network_client_impl.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/mapper/usage_monitor_mapper.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/network/usage_monitor_network_data_source.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/network/usage_monitor_network_data_source_impl.dart';
@@ -10,7 +10,6 @@ import 'package:enpal_monitor/features/usage_monitor/domain/repository/usage_mon
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 final getIt = GetIt.I;
 
@@ -24,10 +23,11 @@ void setup() {
     () => Logger(),
   );
   getIt.registerLazySingleton<NetworkClient>(
-    () => DioNetworkClient(
-      getIt.get(),
-      interceptors: [PrettyDioLogger()],
-    ),
+    // () => DioNetworkClient(
+    //   getIt.get(),
+    //   interceptors: [PrettyDioLogger()],
+    // ),
+    () => FakeNetworkClientImpl(),
   );
   getIt.registerLazySingleton<UsageMonitorNetworkDataSource>(
     () => UsageMonitorNetworkDataSourceImpl(

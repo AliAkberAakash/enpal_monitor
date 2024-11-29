@@ -21,8 +21,8 @@ class UsageMonitorEntityMapperImpl implements UsageMonitorMapper {
   UsageMonitorEntity entityFromUsageMonitorNetworkResponse(
       UsageMonitorResponse usageMonitorResponse) {
     return UsageMonitorEntity(
-      usageMonitorResponse.timestamp.millisecondsSinceEpoch,
-      usageMonitorResponse.value,
+      usageMonitorResponse.timestamp.millisecondsSinceEpoch.toDouble(),
+      usageMonitorResponse.value.toDouble(),
     );
   }
 
@@ -46,8 +46,20 @@ class UsageMonitorEntityMapperImpl implements UsageMonitorMapper {
   List<UsageMonitorEntity> entityListFromUsageMonitorNetworkResponse(
     List<UsageMonitorResponse> responseList,
   ) {
-    return responseList
-        .map((response) => entityFromUsageMonitorNetworkResponse(response))
-        .toList();
+    return _aggregateData(responseList);
+  }
+
+  List<UsageMonitorEntity> _aggregateData(List<UsageMonitorResponse> points) {
+    const int interval = 12;
+    return List.generate((points.length / interval).ceil(), (index) {
+      final sublist = points.skip(index * interval).take(interval);
+      final avgValue =
+          sublist.map((p) => p.value).reduce((a, b) => a + b) / sublist.length;
+      return UsageMonitorEntity(
+        sublist.first.timestamp.millisecondsSinceEpoch.toDouble(),
+        // Use the timestamp of the first point in the interval
+        avgValue.floorToDouble(),
+      );
+    });
   }
 }

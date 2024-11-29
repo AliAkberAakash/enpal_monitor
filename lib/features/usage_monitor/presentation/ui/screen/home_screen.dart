@@ -74,14 +74,17 @@ class _HomeScreenState extends State<HomeScreen>
           controller: _tabController,
           children: [
             GraphScreen(
+              key: UniqueKey(),
               title: "Solar Generation",
               usageMonitorBloc: solarEnergyBloc,
             ),
             GraphScreen(
+              key: UniqueKey(),
               title: "Home Consumption",
               usageMonitorBloc: homeConsumptionBloc,
             ),
             GraphScreen(
+              key: UniqueKey(),
               title: "Battery Consumption",
               usageMonitorBloc: batteryConsumptionBloc,
             ),

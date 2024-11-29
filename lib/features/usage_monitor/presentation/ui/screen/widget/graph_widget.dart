@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 const double maxYAxisValue = 10000;
 const double minYAxisValue = 0;
+const _interval = 4 * 60 * 60 * 1000.0;
 const underGraphGradient = LinearGradient(
   colors: [
     Color(0x66448AFF),
@@ -33,15 +34,23 @@ class GraphWidget extends StatelessWidget {
     final theme = context.theme;
 
     return LineChart(
+      chartRendererKey: UniqueKey(),
       LineChartData(
         maxY: maxYAxisValue,
         minY: minYAxisValue,
         lineBarsData: [
           LineChartBarData(
             isCurved: true,
-            curveSmoothness: 0.05,
-            spots: _aggregateData(),
-            barWidth: 4,
+            curveSmoothness: 0.5,
+            spots: points
+                .map(
+                  (point) => FlSpot(
+                    point.timestamp.toDouble(),
+                    point.value.toDouble(),
+                  ),
+                )
+                .toList(),
+            barWidth: 6,
             gradient: lineGradient,
             preventCurveOverShooting: true,
             belowBarData: BarAreaData(
@@ -76,15 +85,16 @@ class GraphWidget extends StatelessWidget {
           ),
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
-              reservedSize: 30,
-              showTitles: false,
-              interval: 3600 * 4,
+              reservedSize: 20,
+              showTitles: true,
+              interval: _interval,
               getTitlesWidget: (value, meta) => XAxisTitleWidget(
+                key: UniqueKey(),
                 value: value,
                 meta: meta,
               ),
-              minIncluded: false,
-              maxIncluded: false,
+              minIncluded: true,
+              maxIncluded: true,
             ),
           ),
           leftTitles: AxisTitles(
@@ -93,6 +103,7 @@ class GraphWidget extends StatelessWidget {
               showTitles: true,
               interval: 1000,
               getTitlesWidget: (value, meta) => YAxisTitleWidget(
+                key: UniqueKey(),
                 title: "w",
                 value: value.toInt(),
                 meta: meta,
@@ -119,35 +130,9 @@ class GraphWidget extends StatelessWidget {
           ),
         ),
         gridData: FlGridData(
-          show: false,
+          show: true,
         ),
       ), // Optional
     );
-  }
-
-  List<FlSpot> _aggregateData() {
-    const int interval = 12; // 1 hour = 12 intervals of 5 minutes
-    return List.generate((points.length / interval).ceil(), (index) {
-      final sublist = points.skip(index * interval).take(interval);
-      final avgValue = sublist.map((p) => p.value).reduce((a, b) => a + b) / sublist.length;
-      return FlSpot(
-        sublist.first.timestamp.toDouble(), // Use the timestamp of the first point in the interval
-        avgValue,
-      );
-    });
-  }
-
-  List<FlSpot> _getSpotsWatt() {
-    return points
-        .asMap()
-        .entries
-        .where((entry) => entry.key % 9 == 0)
-        .map(
-          (point) => FlSpot(
-            point.value.timestamp.toDouble(),
-            point.value.value.toDouble(),
-          ),
-        )
-        .toList();
   }
 }

@@ -159,19 +159,27 @@ void main() {
       group("Repository returns success response", () {
         final successResponse = [
           UsageMonitorEntity(
-            DateTime.parse("2024-10-20T00:00:00.000Z").millisecondsSinceEpoch,
+            DateTime.parse("2024-10-20T00:00:00.000Z")
+                .millisecondsSinceEpoch
+                .toDouble(),
             2744,
           ),
           UsageMonitorEntity(
-            DateTime.parse("2024-10-20T00:00:00.000Z").millisecondsSinceEpoch,
+            DateTime.parse("2024-10-20T00:00:00.000Z")
+                .millisecondsSinceEpoch
+                .toDouble(),
             6033,
           ),
           UsageMonitorEntity(
-            DateTime.parse("2024-10-20T00:00:00.000Z").millisecondsSinceEpoch,
+            DateTime.parse("2024-10-20T00:00:00.000Z")
+                .millisecondsSinceEpoch
+                .toDouble(),
             6753,
           ),
           UsageMonitorEntity(
-            DateTime.parse("2024-10-20T00:00:00.000Z").millisecondsSinceEpoch,
+            DateTime.parse("2024-10-20T00:00:00.000Z")
+                .millisecondsSinceEpoch
+                .toDouble(),
             5476,
           ),
         ];
