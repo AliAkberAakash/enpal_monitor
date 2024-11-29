@@ -9,6 +9,10 @@ abstract class UsageMonitorMapper {
     final UsageMonitorResponse usageMonitorResponse,
   );
 
+  List<UsageMonitorEntity> entityListFromUsageMonitorNetworkResponse(
+    final List<UsageMonitorResponse> responseList,
+  );
+
   BaseError errorFromException(final dynamic e);
 }
 
@@ -36,5 +40,14 @@ class UsageMonitorEntityMapperImpl implements UsageMonitorMapper {
       default:
         return CommonError();
     }
+  }
+
+  @override
+  List<UsageMonitorEntity> entityListFromUsageMonitorNetworkResponse(
+    List<UsageMonitorResponse> responseList,
+  ) {
+    return responseList
+        .map((response) => entityFromUsageMonitorNetworkResponse(response))
+        .toList();
   }
 }

@@ -40,7 +40,7 @@ class GraphWidget extends StatelessWidget {
           LineChartBarData(
             isCurved: true,
             curveSmoothness: 0.05,
-            spots: _getSpotsWatt(),
+            spots: _aggregateData(),
             barWidth: 4,
             gradient: lineGradient,
             preventCurveOverShooting: true,
@@ -77,7 +77,7 @@ class GraphWidget extends StatelessWidget {
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
               reservedSize: 30,
-              showTitles: true,
+              showTitles: false,
               interval: 3600 * 4,
               getTitlesWidget: (value, meta) => XAxisTitleWidget(
                 value: value,
@@ -123,6 +123,18 @@ class GraphWidget extends StatelessWidget {
         ),
       ), // Optional
     );
+  }
+
+  List<FlSpot> _aggregateData() {
+    const int interval = 12; // 1 hour = 12 intervals of 5 minutes
+    return List.generate((points.length / interval).ceil(), (index) {
+      final sublist = points.skip(index * interval).take(interval);
+      final avgValue = sublist.map((p) => p.value).reduce((a, b) => a + b) / sublist.length;
+      return FlSpot(
+        sublist.first.timestamp.toDouble(), // Use the timestamp of the first point in the interval
+        avgValue,
+      );
+    });
   }
 
   List<FlSpot> _getSpotsWatt() {

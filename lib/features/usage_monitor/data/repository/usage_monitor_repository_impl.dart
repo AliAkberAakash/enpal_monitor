@@ -1,7 +1,9 @@
 import 'package:enpal_monitor/features/usage_monitor/data/mapper/usage_monitor_mapper.dart';
+import 'package:enpal_monitor/features/usage_monitor/data/network/dto/usage_monitor_response.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/network/usage_monitor_network_data_source.dart';
 import 'package:enpal_monitor/features/usage_monitor/domain/entity/usage_monitor_entity.dart';
 import 'package:enpal_monitor/features/usage_monitor/domain/repository/usage_monitor_repository.dart';
+import 'package:flutter/foundation.dart';
 
 class UsageMonitorRepositoryImpl implements UsageMonitorRepository {
   final UsageMonitorNetworkDataSource _networkDataSource;
@@ -25,10 +27,11 @@ class UsageMonitorRepositoryImpl implements UsageMonitorRepository {
 
       // TODO: save data in local and always return from cache
 
-      final entityList = responseList
-          .map((response) => _usageMonitorEntityMapper
-              .entityFromUsageMonitorNetworkResponse(response))
-          .toList();
+      final entityList =
+          compute<List<UsageMonitorResponse>, List<UsageMonitorEntity>>(
+        _usageMonitorEntityMapper.entityListFromUsageMonitorNetworkResponse,
+        responseList,
+      );
 
       return entityList;
     } catch (e) {
