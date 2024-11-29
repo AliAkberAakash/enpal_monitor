@@ -17,7 +17,7 @@ class UsageMonitorEntityMapperImpl implements UsageMonitorMapper {
   UsageMonitorEntity entityFromUsageMonitorNetworkResponse(
       UsageMonitorResponse usageMonitorResponse) {
     return UsageMonitorEntity(
-      usageMonitorResponse.timestamp,
+      usageMonitorResponse.timestamp.millisecondsSinceEpoch,
       usageMonitorResponse.value,
     );
   }

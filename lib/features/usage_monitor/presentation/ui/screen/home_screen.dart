@@ -1,5 +1,9 @@
 import 'package:enpal_design_system/styles/util/extensions.dart';
+import 'package:enpal_monitor/di/di.dart';
+import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc.dart';
+import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_event.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/ui/screen/graph_screen.dart';
+import 'package:enpal_monitor/features/usage_monitor/util/usage_type.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,6 +15,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
+  final UsageMonitorBloc solarEnergyBloc = getIt.get();
+  final UsageMonitorBloc homeConsumptionBloc = getIt.get();
+  final UsageMonitorBloc batteryConsumptionBloc = getIt.get();
+
   late final TabController _tabController;
   late final tabs = [
     Tab(text: "Solar", icon: Icon(Icons.sunny)),
@@ -24,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen>
       length: 3,
       vsync: this,
     );
-    _tabController.addListener(() {});
+    _loadUsageData();
     super.initState();
   }
 
@@ -67,12 +75,15 @@ class _HomeScreenState extends State<HomeScreen>
           children: [
             GraphScreen(
               title: "Solar Generation",
+              usageMonitorBloc: solarEnergyBloc,
             ),
             GraphScreen(
               title: "Home Consumption",
+              usageMonitorBloc: homeConsumptionBloc,
             ),
             GraphScreen(
               title: "Battery Consumption",
+              usageMonitorBloc: batteryConsumptionBloc,
             ),
           ],
         ),
@@ -83,16 +94,11 @@ class _HomeScreenState extends State<HomeScreen>
   Future<void> _showWarningDialog() async {
     return showDialog<void>(
       context: context,
-      barrierDismissible: false, // user must tap button!
+      barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: const SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('Are you sure you want to delete all data?'),
-              ],
-            ),
-          ),
+          title: Text("Warning"),
+          content: Text('Are you sure you want to delete all data?'),
           actions: <Widget>[
             TextButton(
               child: const Text('Yes'),
@@ -109,6 +115,27 @@ class _HomeScreenState extends State<HomeScreen>
           ],
         );
       },
+    );
+  }
+
+  void _loadUsageData() {
+    solarEnergyBloc.add(
+      LoadUsageMonitorEvent(
+        date: "2024-10-27",
+        type: UsageType.solar.name,
+      ),
+    );
+    homeConsumptionBloc.add(
+      LoadUsageMonitorEvent(
+        date: "2024-10-27",
+        type: UsageType.home.name,
+      ),
+    );
+    batteryConsumptionBloc.add(
+      LoadUsageMonitorEvent(
+        date: "2024-10-27",
+        type: UsageType.battery.name,
+      ),
     );
   }
 }

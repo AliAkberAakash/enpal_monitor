@@ -158,10 +158,22 @@ void main() {
 
       group("Repository returns success response", () {
         final successResponse = [
-          UsageMonitorEntity(DateTime.parse("2024-10-20T00:00:00.000Z"), 2744),
-          UsageMonitorEntity(DateTime.parse("2024-10-20T00:00:00.000Z"), 6033),
-          UsageMonitorEntity(DateTime.parse("2024-10-20T00:00:00.000Z"), 6753),
-          UsageMonitorEntity(DateTime.parse("2024-10-20T00:00:00.000Z"), 5476),
+          UsageMonitorEntity(
+            DateTime.parse("2024-10-20T00:00:00.000Z").millisecondsSinceEpoch,
+            2744,
+          ),
+          UsageMonitorEntity(
+            DateTime.parse("2024-10-20T00:00:00.000Z").millisecondsSinceEpoch,
+            6033,
+          ),
+          UsageMonitorEntity(
+            DateTime.parse("2024-10-20T00:00:00.000Z").millisecondsSinceEpoch,
+            6753,
+          ),
+          UsageMonitorEntity(
+            DateTime.parse("2024-10-20T00:00:00.000Z").millisecondsSinceEpoch,
+            5476,
+          ),
         ];
 
         blocTest(
