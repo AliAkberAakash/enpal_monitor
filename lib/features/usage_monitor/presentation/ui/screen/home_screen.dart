@@ -1,10 +1,12 @@
 import 'package:enpal_design_system/styles/util/extensions.dart';
 import 'package:enpal_monitor/di/di.dart';
-import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc.dart';
-import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_event.dart';
+import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/date_selector_cubit/date_selector_cubit.dart';
+import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_bloc.dart';
+import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_event.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/ui/screen/graph_screen.dart';
 import 'package:enpal_monitor/features/usage_monitor/util/usage_type.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,12 +17,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  final UsageMonitorBloc solarEnergyBloc = getIt.get();
-  final UsageMonitorBloc homeConsumptionBloc = getIt.get();
-  final UsageMonitorBloc batteryConsumptionBloc = getIt.get();
+  final UsageMonitorBloc _solarEnergyBloc = getIt.get();
+  final UsageMonitorBloc _homeConsumptionBloc = getIt.get();
+  final UsageMonitorBloc _batteryConsumptionBloc = getIt.get();
+  final DateSelectorCubit _dateSelectorCubit = getIt.get();
 
   late final TabController _tabController;
-  late final tabs = [
+  late final _tabs = [
     Tab(text: "Solar", icon: Icon(Icons.sunny)),
     Tab(text: "Home", icon: Icon(Icons.home)),
     Tab(text: "Battery", icon: Icon(Icons.battery_charging_full)),
@@ -32,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen>
       length: 3,
       vsync: this,
     );
-    _loadUsageData(selectedDate: DateTime.now());
+    _loadUsageData(selectedDate: _dateSelectorCubit.state);
     super.initState();
   }
 
@@ -46,49 +49,83 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     final theme = context.theme;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Enpal Monitor"),
-        actions: [
-          IconButton(
-            onPressed: _showDatePicker,
-            icon: Icon(
-              Icons.calendar_today,
+    return BlocListener<DateSelectorCubit, DateTime>(
+      bloc: _dateSelectorCubit,
+      listener: (ctx, state) {
+        _loadUsageData(selectedDate: state);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Enpal Monitor"),
+          actions: [
+            IconButton(
+              onPressed: _showDatePicker,
+              icon: Icon(
+                Icons.calendar_today,
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: _showWarningDialog,
-            icon: Icon(
-              Icons.delete_outline_outlined,
-            ),
-          ),
-        ],
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: tabs,
-        ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(theme.spacingTokens.cwSpacing8),
-        child: TabBarView(
-          controller: _tabController,
-          children: [
-            GraphScreen(
-              key: UniqueKey(),
-              title: "Solar Generation",
-              usageMonitorBloc: solarEnergyBloc,
-            ),
-            GraphScreen(
-              key: UniqueKey(),
-              title: "Home Consumption",
-              usageMonitorBloc: homeConsumptionBloc,
-            ),
-            GraphScreen(
-              key: UniqueKey(),
-              title: "Battery Consumption",
-              usageMonitorBloc: batteryConsumptionBloc,
+            IconButton(
+              onPressed: _showWarningDialog,
+              icon: Icon(
+                Icons.delete_outline_outlined,
+              ),
             ),
           ],
+          bottom: TabBar(
+            controller: _tabController,
+            tabs: _tabs,
+          ),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(theme.spacingTokens.cwSpacing8),
+          child: TabBarView(
+            controller: _tabController,
+            children: [
+              GraphScreen(
+                key: UniqueKey(),
+                title: "Solar Generation",
+                usageMonitorBloc: _solarEnergyBloc,
+                dateSelectorCubit: _dateSelectorCubit,
+                onRefresh: () async {
+                  _solarEnergyBloc.add(
+                    LoadUsageMonitorEvent(
+                      date: _dateSelectorCubit.state,
+                      type: UsageType.solar.name,
+                    ),
+                  );
+                  return;
+                },
+              ),
+              GraphScreen(
+                key: UniqueKey(),
+                title: "Home Consumption",
+                usageMonitorBloc: _homeConsumptionBloc,
+                dateSelectorCubit: _dateSelectorCubit,
+                onRefresh: () async {
+                  _solarEnergyBloc.add(
+                    LoadUsageMonitorEvent(
+                      date: _dateSelectorCubit.state,
+                      type: UsageType.home.name,
+                    ),
+                  );
+                },
+              ),
+              GraphScreen(
+                key: UniqueKey(),
+                title: "Battery Consumption",
+                usageMonitorBloc: _batteryConsumptionBloc,
+                dateSelectorCubit: _dateSelectorCubit,
+                onRefresh: () async {
+                  _solarEnergyBloc.add(
+                    LoadUsageMonitorEvent(
+                      date: _dateSelectorCubit.state,
+                      type: UsageType.battery.name,
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -124,19 +161,19 @@ class _HomeScreenState extends State<HomeScreen>
   Future<void> _loadUsageData({
     required final DateTime selectedDate,
   }) async {
-    solarEnergyBloc.add(
+    _solarEnergyBloc.add(
       LoadUsageMonitorEvent(
         date: selectedDate,
         type: UsageType.solar.name,
       ),
     );
-    homeConsumptionBloc.add(
+    _homeConsumptionBloc.add(
       LoadUsageMonitorEvent(
         date: selectedDate,
         type: UsageType.home.name,
       ),
     );
-    batteryConsumptionBloc.add(
+    _batteryConsumptionBloc.add(
       LoadUsageMonitorEvent(
         date: selectedDate,
         type: UsageType.battery.name,
