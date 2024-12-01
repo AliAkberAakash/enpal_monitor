@@ -51,8 +51,8 @@ class UsageMonitorRepositoryImpl implements UsageMonitorRepository {
       );
 
       /// Save network data to local storage
-      await _usageMonitorLocalDataSource
-          .insertUsageMonitorData(localDataToSave);
+      await _usageMonitorLocalDataSource.insertUsageMonitorData(
+          data: localDataToSave);
 
       final entityList =
           compute<List<UsageMonitorResponse>, List<UsageMonitorEntity>>(
@@ -67,7 +67,16 @@ class UsageMonitorRepositoryImpl implements UsageMonitorRepository {
   }
 
   @override
-  Future<void> deleteDeleteAllUsageMonitorData() async {
+  Future<void> deleteAllUsageMonitorData() async {
     await _usageMonitorLocalDataSource.deleteAllData();
+  }
+
+  @override
+  Future<void> deleteUsageMonitorDataByCommonId({
+    required final String date,
+    required final String type,
+  }) async {
+    final commonId = "$date-$type";
+    await _usageMonitorLocalDataSource.deleteByCommonId(commonId: commonId);
   }
 }

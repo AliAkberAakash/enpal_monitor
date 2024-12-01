@@ -19,12 +19,21 @@ class UsageMonitorLocalDataSourceImpl implements UsageMonitorLocalDataSource {
   }
 
   @override
-  Future<void> insertUsageMonitorData(List<UsageMonitorDataLocal> data) async {
+  Future<void> insertUsageMonitorData({
+    required final List<UsageMonitorDataLocal> data,
+  }) async {
     await dao.insertBatch(data);
   }
 
   @override
   Future<void> deleteAllData() async {
     await dao.deleteAll();
+  }
+
+  @override
+  Future<void> deleteByCommonId({
+    required final String commonId,
+  }) async {
+    await dao.deleteByCommonId(commonId);
   }
 }

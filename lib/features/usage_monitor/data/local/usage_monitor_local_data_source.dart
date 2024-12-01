@@ -6,7 +6,13 @@ abstract class UsageMonitorLocalDataSource {
     required final String type,
   });
 
-  Future<void> insertUsageMonitorData(List<UsageMonitorDataLocal> data);
+  Future<void> insertUsageMonitorData({
+    required final List<UsageMonitorDataLocal> data,
+  });
+
+  Future<void> deleteByCommonId({
+    required final String commonId,
+  });
 
   Future<void> deleteAllData();
 }

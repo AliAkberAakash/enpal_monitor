@@ -17,7 +17,7 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
     this.type,
   ) : super(UsageMonitorLoadingState()) {
     on<LoadUsageMonitorEvent>(_onLoadUsageMonitorEvent);
-    on<DeleteAllUsageMonitorEvent>(_onDeleteAllUsageMonitorEvent);
+    on<DeleteUsageMonitorEvent>(_onDeleteAllUsageMonitorEvent);
   }
 
   FutureOr<void> _onLoadUsageMonitorEvent(
@@ -42,11 +42,15 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
   }
 
   FutureOr<void> _onDeleteAllUsageMonitorEvent(
-    final DeleteAllUsageMonitorEvent event,
+    final DeleteUsageMonitorEvent event,
     final Emitter<UsageMonitorState> emit,
   ) async {
     try {
-      await usageMonitorRepository.deleteDeleteAllUsageMonitorData();
+      final dateString = DateFormat(dateFormat).format(event.date);
+      await usageMonitorRepository.deleteUsageMonitorDataByCommonId(
+        date: dateString,
+        type: type.name,
+      );
       emit(UsageMonitorDeletedState());
     } catch (error) {
       _handleError(emit, error);
@@ -68,17 +72,17 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
       );
     }
   }
-  //
-  // List<UsageMonitorEntity> _aggregateData(List<UsageMonitorEntity> points) {
-  //   const int interval = 12;
-  //   return List.generate((points.length / interval).ceil(), (index) {
-  //     final sublist = points.skip(index * interval).take(interval);
-  //     final avgValue =
-  //         sublist.map((p) => p.value).reduce((a, b) => a + b) / sublist.length;
-  //     return UsageMonitorEntity(
-  //       sublist.first.timestamp,
-  //       avgValue.floorToDouble(),
-  //     );
-  //   });
-  // }
+//
+// List<UsageMonitorEntity> _aggregateData(List<UsageMonitorEntity> points) {
+//   const int interval = 12;
+//   return List.generate((points.length / interval).ceil(), (index) {
+//     final sublist = points.skip(index * interval).take(interval);
+//     final avgValue =
+//         sublist.map((p) => p.value).reduce((a, b) => a + b) / sublist.length;
+//     return UsageMonitorEntity(
+//       sublist.first.timestamp,
+//       avgValue.floorToDouble(),
+//     );
+//   });
+// }
 }

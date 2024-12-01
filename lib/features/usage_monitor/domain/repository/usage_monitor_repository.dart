@@ -6,5 +6,10 @@ abstract class UsageMonitorRepository {
     required final String type,
   });
 
-  Future<void> deleteDeleteAllUsageMonitorData();
+  Future<void> deleteAllUsageMonitorData();
+
+  Future<void> deleteUsageMonitorDataByCommonId({
+    required final String date,
+    required final String type,
+  });
 }

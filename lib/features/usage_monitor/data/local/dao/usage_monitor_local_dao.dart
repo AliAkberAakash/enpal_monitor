@@ -75,6 +75,16 @@ class UsageMonitorDataLocalDao {
     await db.delete(_tableName);
   }
 
+  /// Method to delete all data for a specific commonId
+  Future<void> deleteByCommonId(String commonId) async {
+    final db = await database;
+    await db.delete(
+      _tableName,
+      where: 'commonId = ?',
+      whereArgs: [commonId],
+    );
+  }
+
   Future<List<UsageMonitorDataLocal>> getAllData() async {
     final db = await database;
     final maps = await db.query(_tableName);

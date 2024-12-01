@@ -73,8 +73,11 @@ class GraphScreen extends StatelessWidget {
                       key: UniqueKey(),
                       points: state.usageData,
                     );
+                  } else if (state is UsageMonitorDeletedState) {
+                    return Center(
+                      child: Text("Please select a date or refresh the screen"),
+                    );
                   } else {
-                    // todo show error
                     return Center(
                       child: Text("Failed to load graph data"),
                     );

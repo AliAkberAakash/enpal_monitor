@@ -249,26 +249,27 @@ void main() {
       });
     });
 
-    group(DeleteAllUsageMonitorEvent, () {
+    group(DeleteUsageMonitorEvent, () {
       group("Repository throws Exception", () {
         blocTest(
           "Emits [UsageMonitorErrorState(error: CommonError())] when repository throws CommonError",
           build: () => usageMonitorBloc,
           setUp: () {
             when(
-              () =>
-                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
             ).thenThrow(CommonError());
           },
           act: (bloc) => bloc.add(
-            DeleteAllUsageMonitorEvent(),
+            DeleteUsageMonitorEvent(
+              DateTime.now(),
+            ),
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorErrorState(error: CommonError()),
           ],
           verify: (_) {
-            verify(() => mockUsageMonitorRepository
-                .deleteDeleteAllUsageMonitorData()).called(1);
+            verify(() => mockUsageMonitorRepository.deleteAllUsageMonitorData())
+                .called(1);
           },
         );
 
@@ -277,20 +278,20 @@ void main() {
           build: () => usageMonitorBloc,
           setUp: () {
             when(
-              () =>
-                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
             ).thenThrow(SocketException(""));
           },
           act: (bloc) => bloc.add(
-            DeleteAllUsageMonitorEvent(),
+            DeleteUsageMonitorEvent(
+              DateTime.now(),
+            ),
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorErrorState(error: CommonError()),
           ],
           verify: (_) {
             verify(
-              () =>
-                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
             ).called(1);
           },
         );
@@ -302,22 +303,22 @@ void main() {
           build: () => usageMonitorBloc,
           setUp: () {
             when(
-              () =>
-                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
             ).thenAnswer(
               (_) async => true,
             );
           },
           act: (bloc) => bloc.add(
-            DeleteAllUsageMonitorEvent(),
+            DeleteUsageMonitorEvent(
+              DateTime.now(),
+            ),
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorDeletedState(),
           ],
           verify: (_) {
             verify(
-              () =>
-                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
             ).called(1);
           },
         );
@@ -327,22 +328,22 @@ void main() {
           build: () => usageMonitorBloc,
           setUp: () {
             when(
-              () =>
-                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
             ).thenAnswer(
               (_) async => false,
             );
           },
           act: (bloc) => bloc.add(
-            DeleteAllUsageMonitorEvent(),
+            DeleteUsageMonitorEvent(
+              DateTime.now(),
+            ),
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorDeletedState(),
           ],
           verify: (_) {
             verify(
-              () =>
-                  mockUsageMonitorRepository.deleteDeleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
             ).called(1);
           },
         );

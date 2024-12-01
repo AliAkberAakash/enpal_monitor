@@ -121,11 +121,11 @@ class _HomeScreenState extends State<HomeScreen>
           content: Text('Are you sure you want to delete all data?'),
           actions: <Widget>[
             TextButton(
-              child: const Text('Yes'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
+                child: const Text('Yes'),
+                onPressed: () {
+                  _deleteAllData();
+                  Navigator.of(context).pop();
+                }),
             TextButton(
               child: const Text('No'),
               onPressed: () {
@@ -190,6 +190,24 @@ class _HomeScreenState extends State<HomeScreen>
     _solarEnergyBloc.add(
       LoadUsageMonitorEvent(
         date: _dateSelectorCubit.state,
+      ),
+    );
+  }
+
+  void _deleteAllData() {
+    _solarEnergyBloc.add(
+      DeleteUsageMonitorEvent(
+        _dateSelectorCubit.state,
+      ),
+    );
+    _homeConsumptionBloc.add(
+      DeleteUsageMonitorEvent(
+        _dateSelectorCubit.state,
+      ),
+    );
+    _batteryConsumptionBloc.add(
+      DeleteUsageMonitorEvent(
+        _dateSelectorCubit.state,
       ),
     );
   }

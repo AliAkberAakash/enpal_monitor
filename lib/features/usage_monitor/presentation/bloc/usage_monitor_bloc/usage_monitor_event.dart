@@ -16,4 +16,11 @@ class LoadUsageMonitorEvent extends UsageMonitorEvent {
   List<Object?> get props => [date];
 }
 
-class DeleteAllUsageMonitorEvent extends UsageMonitorEvent {}
+class DeleteUsageMonitorEvent extends UsageMonitorEvent {
+  final DateTime date;
+
+  DeleteUsageMonitorEvent(this.date);
+
+  @override
+  List<Object?> get props => [date];
+}
