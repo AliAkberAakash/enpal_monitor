@@ -5,6 +5,9 @@ import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_mon
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_state.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+
+const _dateFormat = 'yyyy-MM-dd';
 
 class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
   final UsageMonitorRepository usageMonitorRepository;
@@ -22,8 +25,9 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
   ) async {
     emit(UsageMonitorLoadingState());
     try {
+      final dateString = DateFormat(_dateFormat).format(event.date);
       final response = await usageMonitorRepository.getUsageMonitorData(
-        date: event.date,
+        date: dateString,
         type: event.type,
       );
       emit(

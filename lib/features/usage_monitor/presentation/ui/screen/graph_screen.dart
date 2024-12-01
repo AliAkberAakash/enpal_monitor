@@ -21,41 +21,43 @@ class GraphScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = context.theme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: theme.textTheme.titleLarge,
-        ),
-        SizedBox(
-          height: theme.spacingTokens.cwSpacing16,
-        ),
-        AspectRatio(
-          aspectRatio: aspectRatio,
-          child: BlocBuilder<UsageMonitorBloc, UsageMonitorState>(
-            bloc: usageMonitorBloc,
-            builder: (ctx, state) {
-              if (state is UsageMonitorLoadingState) {
-                // todo show loader
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is UsageMonitorLoadedState) {
-                return GraphWidget(
-                  key: UniqueKey(),
-                  points: state.usageData,
-                );
-              } else {
-                // todo show error
-                return Center(
-                  child: Text("Failed to load graph data"),
-                );
-              }
-            },
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: theme.textTheme.titleLarge,
           ),
-        ),
-      ],
+          SizedBox(
+            height: theme.spacingTokens.cwSpacing16,
+          ),
+          AspectRatio(
+            aspectRatio: aspectRatio,
+            child: BlocBuilder<UsageMonitorBloc, UsageMonitorState>(
+              bloc: usageMonitorBloc,
+              builder: (ctx, state) {
+                if (state is UsageMonitorLoadingState) {
+                  // todo show loader
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (state is UsageMonitorLoadedState) {
+                  return GraphWidget(
+                    key: UniqueKey(),
+                    points: state.usageData,
+                  );
+                } else {
+                  // todo show error
+                  return Center(
+                    child: Text("Failed to load graph data"),
+                  );
+                }
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

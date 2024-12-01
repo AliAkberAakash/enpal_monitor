@@ -41,7 +41,7 @@ void main() {
           },
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
-              date: "2024-10-20",
+              date: DateTime.parse("2024-10-20"),
               type: "home",
             ),
           ),
@@ -69,7 +69,10 @@ void main() {
                 )).thenThrow(NetworkError());
           },
           act: (bloc) => bloc.add(
-            LoadUsageMonitorEvent(date: "2024-10-20", type: "home"),
+            LoadUsageMonitorEvent(
+              date: DateTime.parse("2024-10-20"),
+              type: "home",
+            ),
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
@@ -93,7 +96,10 @@ void main() {
                 )).thenThrow(NetworkTimeoutError());
           },
           act: (bloc) => bloc.add(
-            LoadUsageMonitorEvent(date: "2024-10-20", type: "home"),
+            LoadUsageMonitorEvent(
+              date: DateTime.parse("2024-10-20"),
+              type: "home",
+            ),
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
@@ -117,7 +123,10 @@ void main() {
                 )).thenThrow(CommonError());
           },
           act: (bloc) => bloc.add(
-            LoadUsageMonitorEvent(date: "2024-10-20", type: "home"),
+            LoadUsageMonitorEvent(
+              date: DateTime.parse("2024-10-20"),
+              type: "home",
+            ),
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
@@ -141,7 +150,10 @@ void main() {
                 )).thenThrow(SocketException(""));
           },
           act: (bloc) => bloc.add(
-            LoadUsageMonitorEvent(date: "2024-10-20", type: "home"),
+            LoadUsageMonitorEvent(
+              date: DateTime.parse("2024-10-20"),
+              type: "home",
+            ),
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
@@ -194,7 +206,10 @@ void main() {
                 )).thenAnswer((_) async => successResponse);
           },
           act: (bloc) => bloc.add(
-            LoadUsageMonitorEvent(date: "2024-10-20", type: "home"),
+            LoadUsageMonitorEvent(
+              date: DateTime.parse("2024-10-20"),
+              type: "home",
+            ),
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
@@ -220,7 +235,10 @@ void main() {
                 )).thenAnswer((_) async => []);
           },
           act: (bloc) => bloc.add(
-            LoadUsageMonitorEvent(date: "2024-10-20", type: "home"),
+            LoadUsageMonitorEvent(
+              date: DateTime.parse("2024-10-20"),
+              type: "home",
+            ),
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),

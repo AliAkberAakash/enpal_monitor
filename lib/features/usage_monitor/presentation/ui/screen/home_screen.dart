@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen>
       length: 3,
       vsync: this,
     );
-    _loadUsageData();
+    _loadUsageData(selectedDate: DateTime.now());
     super.initState();
   }
 
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen>
         title: Text("Enpal Monitor"),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: _showDatePicker,
             icon: Icon(
               Icons.calendar_today,
             ),
@@ -121,24 +121,37 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  void _loadUsageData() {
+  Future<void> _loadUsageData({
+    required final DateTime selectedDate,
+  }) async {
     solarEnergyBloc.add(
       LoadUsageMonitorEvent(
-        date: "2024-10-27",
+        date: selectedDate,
         type: UsageType.solar.name,
       ),
     );
     homeConsumptionBloc.add(
       LoadUsageMonitorEvent(
-        date: "2024-10-27",
+        date: selectedDate,
         type: UsageType.home.name,
       ),
     );
     batteryConsumptionBloc.add(
       LoadUsageMonitorEvent(
-        date: "2024-10-27",
+        date: selectedDate,
         type: UsageType.battery.name,
       ),
     );
+  }
+
+  void _showDatePicker() async {
+    DateTime? selectedDate = await showDatePicker(
+      context: context,
+      firstDate: DateTime.now().subtract(Duration(days: 30)),
+      lastDate: DateTime.now(),
+    );
+    if (selectedDate != null) {
+      _loadUsageData(selectedDate: selectedDate);
+    }
   }
 }

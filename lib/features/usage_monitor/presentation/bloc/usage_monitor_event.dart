@@ -6,7 +6,7 @@ sealed class UsageMonitorEvent extends Equatable {
 }
 
 class LoadUsageMonitorEvent extends UsageMonitorEvent {
-  final String date;
+  final DateTime date;
   final String type;
 
   LoadUsageMonitorEvent({
