@@ -9,6 +9,7 @@ import 'package:enpal_monitor/features/usage_monitor/data/repository/usage_monit
 import 'package:enpal_monitor/features/usage_monitor/domain/repository/usage_monitor_repository.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/date_selector_cubit/date_selector_cubit.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_bloc.dart';
+import 'package:enpal_monitor/features/usage_monitor/util/usage_type.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logger/logger.dart';
 
@@ -45,8 +46,8 @@ void setup() {
       getIt.get(),
     ),
   );
-  getIt.registerFactory<UsageMonitorBloc>(
-    () => UsageMonitorBloc(getIt.get()),
+  getIt.registerFactoryParam<UsageMonitorBloc, UsageType, void>(
+    (type, _) => UsageMonitorBloc(getIt.get(), type),
   );
   getIt.registerFactory<DateSelectorCubit>(
     () => DateSelectorCubit(DateTime.now()),

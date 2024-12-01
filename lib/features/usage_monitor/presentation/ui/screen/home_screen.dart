@@ -17,9 +17,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  final UsageMonitorBloc _solarEnergyBloc = getIt.get();
-  final UsageMonitorBloc _homeConsumptionBloc = getIt.get();
-  final UsageMonitorBloc _batteryConsumptionBloc = getIt.get();
+  final UsageMonitorBloc _solarEnergyBloc = getIt.get(param1: UsageType.solar);
+  final UsageMonitorBloc _homeConsumptionBloc =
+      getIt.get(param1: UsageType.home);
+  final UsageMonitorBloc _batteryConsumptionBloc =
+      getIt.get(param1: UsageType.battery);
   final DateSelectorCubit _dateSelectorCubit = getIt.get();
 
   late final TabController _tabController;
@@ -142,19 +144,16 @@ class _HomeScreenState extends State<HomeScreen>
     _solarEnergyBloc.add(
       LoadUsageMonitorEvent(
         date: selectedDate,
-        type: UsageType.solar.name,
       ),
     );
     _homeConsumptionBloc.add(
       LoadUsageMonitorEvent(
         date: selectedDate,
-        type: UsageType.home.name,
       ),
     );
     _batteryConsumptionBloc.add(
       LoadUsageMonitorEvent(
         date: selectedDate,
-        type: UsageType.battery.name,
       ),
     );
   }
@@ -175,7 +174,6 @@ class _HomeScreenState extends State<HomeScreen>
     _batteryConsumptionBloc.add(
       LoadUsageMonitorEvent(
         date: _dateSelectorCubit.state,
-        type: UsageType.battery.name,
       ),
     );
   }
@@ -184,7 +182,6 @@ class _HomeScreenState extends State<HomeScreen>
     _homeConsumptionBloc.add(
       LoadUsageMonitorEvent(
         date: _dateSelectorCubit.state,
-        type: UsageType.home.name,
       ),
     );
   }
@@ -193,7 +190,6 @@ class _HomeScreenState extends State<HomeScreen>
     _solarEnergyBloc.add(
       LoadUsageMonitorEvent(
         date: _dateSelectorCubit.state,
-        type: UsageType.solar.name,
       ),
     );
   }

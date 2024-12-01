@@ -6,6 +6,7 @@ import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_mon
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_event.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_state.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
+import 'package:enpal_monitor/features/usage_monitor/util/usage_type.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:bloc_test/bloc_test.dart';
@@ -20,7 +21,8 @@ void main() {
   group("UsageMonitorBloc", () {
     setUp(() {
       mockUsageMonitorRepository = MockUsageMonitorRepository();
-      usageMonitorBloc = UsageMonitorBloc(mockUsageMonitorRepository);
+      usageMonitorBloc =
+          UsageMonitorBloc(mockUsageMonitorRepository, UsageType.solar);
     });
 
     test("Initial state is UsageMonitorLoadingState", () {
@@ -42,7 +44,6 @@ void main() {
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
               date: DateTime.parse("2024-10-20"),
-              type: "home",
             ),
           ),
           expect: () => <UsageMonitorState>[
@@ -71,7 +72,6 @@ void main() {
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
               date: DateTime.parse("2024-10-20"),
-              type: "home",
             ),
           ),
           expect: () => <UsageMonitorState>[
@@ -98,7 +98,6 @@ void main() {
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
               date: DateTime.parse("2024-10-20"),
-              type: "home",
             ),
           ),
           expect: () => <UsageMonitorState>[
@@ -125,7 +124,6 @@ void main() {
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
               date: DateTime.parse("2024-10-20"),
-              type: "home",
             ),
           ),
           expect: () => <UsageMonitorState>[
@@ -152,7 +150,6 @@ void main() {
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
               date: DateTime.parse("2024-10-20"),
-              type: "home",
             ),
           ),
           expect: () => <UsageMonitorState>[
@@ -208,7 +205,6 @@ void main() {
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
               date: DateTime.parse("2024-10-20"),
-              type: "home",
             ),
           ),
           expect: () => <UsageMonitorState>[
@@ -237,7 +233,6 @@ void main() {
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
               date: DateTime.parse("2024-10-20"),
-              type: "home",
             ),
           ),
           expect: () => <UsageMonitorState>[

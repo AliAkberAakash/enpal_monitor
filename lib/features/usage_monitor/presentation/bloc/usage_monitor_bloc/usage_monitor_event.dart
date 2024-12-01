@@ -7,15 +7,13 @@ sealed class UsageMonitorEvent extends Equatable {
 
 class LoadUsageMonitorEvent extends UsageMonitorEvent {
   final DateTime date;
-  final String type;
 
   LoadUsageMonitorEvent({
     required this.date,
-    required this.type,
   });
 
   @override
-  List<Object?> get props => [date, type];
+  List<Object?> get props => [date];
 }
 
 class DeleteAllUsageMonitorEvent extends UsageMonitorEvent {}

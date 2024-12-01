@@ -5,14 +5,17 @@ import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_mon
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_state.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
 import 'package:enpal_monitor/features/usage_monitor/util/constants.dart';
+import 'package:enpal_monitor/features/usage_monitor/util/usage_type.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
+  final UsageType type;
   final UsageMonitorRepository usageMonitorRepository;
 
   UsageMonitorBloc(
     this.usageMonitorRepository,
+    this.type,
   ) : super(UsageMonitorLoadingState()) {
     on<LoadUsageMonitorEvent>(_onLoadUsageMonitorEvent);
     on<DeleteAllUsageMonitorEvent>(_onDeleteAllUsageMonitorEvent);
@@ -27,7 +30,7 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
       final dateString = DateFormat(dateFormat).format(event.date);
       final response = await usageMonitorRepository.getUsageMonitorData(
         date: dateString,
-        type: event.type,
+        type: type.name,
       );
       emit(
         UsageMonitorLoadedState(
