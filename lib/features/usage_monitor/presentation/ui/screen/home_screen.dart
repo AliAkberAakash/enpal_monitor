@@ -86,43 +86,21 @@ class _HomeScreenState extends State<HomeScreen>
                 title: "Solar Generation",
                 usageMonitorBloc: _solarEnergyBloc,
                 dateSelectorCubit: _dateSelectorCubit,
-                onRefresh: () async {
-                  _solarEnergyBloc.add(
-                    LoadUsageMonitorEvent(
-                      date: _dateSelectorCubit.state,
-                      type: UsageType.solar.name,
-                    ),
-                  );
-                  return;
-                },
+                onRefresh: _onSolarScreenRefresh,
               ),
               GraphScreen(
                 key: UniqueKey(),
                 title: "Home Consumption",
                 usageMonitorBloc: _homeConsumptionBloc,
                 dateSelectorCubit: _dateSelectorCubit,
-                onRefresh: () async {
-                  _solarEnergyBloc.add(
-                    LoadUsageMonitorEvent(
-                      date: _dateSelectorCubit.state,
-                      type: UsageType.home.name,
-                    ),
-                  );
-                },
+                onRefresh: _onHomeScreenRefresh,
               ),
               GraphScreen(
                 key: UniqueKey(),
                 title: "Battery Consumption",
                 usageMonitorBloc: _batteryConsumptionBloc,
                 dateSelectorCubit: _dateSelectorCubit,
-                onRefresh: () async {
-                  _solarEnergyBloc.add(
-                    LoadUsageMonitorEvent(
-                      date: _dateSelectorCubit.state,
-                      type: UsageType.battery.name,
-                    ),
-                  );
-                },
+                onRefresh: _onBatteryScreenRefresh,
               ),
             ],
           ),
@@ -191,5 +169,32 @@ class _HomeScreenState extends State<HomeScreen>
     if (selectedDate != null) {
       _dateSelectorCubit.onDateChanged(selectedDate);
     }
+  }
+
+  Future<void> _onBatteryScreenRefresh() async {
+    _batteryConsumptionBloc.add(
+      LoadUsageMonitorEvent(
+        date: _dateSelectorCubit.state,
+        type: UsageType.battery.name,
+      ),
+    );
+  }
+
+  Future<void> _onHomeScreenRefresh() async {
+    _homeConsumptionBloc.add(
+      LoadUsageMonitorEvent(
+        date: _dateSelectorCubit.state,
+        type: UsageType.home.name,
+      ),
+    );
+  }
+
+  Future<void> _onSolarScreenRefresh() async {
+    _solarEnergyBloc.add(
+      LoadUsageMonitorEvent(
+        date: _dateSelectorCubit.state,
+        type: UsageType.solar.name,
+      ),
+    );
   }
 }

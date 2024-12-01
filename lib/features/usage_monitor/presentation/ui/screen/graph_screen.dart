@@ -30,7 +30,9 @@ class GraphScreen extends StatelessWidget {
 
     return RefreshIndicator(
       onRefresh: onRefresh,
+      triggerMode: RefreshIndicatorTriggerMode.anywhere,
       child: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
