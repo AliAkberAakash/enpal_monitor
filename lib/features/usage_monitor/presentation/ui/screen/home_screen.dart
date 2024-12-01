@@ -186,9 +186,10 @@ class _HomeScreenState extends State<HomeScreen>
       context: context,
       firstDate: DateTime.now().subtract(Duration(days: 30)),
       lastDate: DateTime.now(),
+      currentDate: _dateSelectorCubit.state,
     );
     if (selectedDate != null) {
-      _loadUsageData(selectedDate: selectedDate);
+      _dateSelectorCubit.onDateChanged(selectedDate);
     }
   }
 }
