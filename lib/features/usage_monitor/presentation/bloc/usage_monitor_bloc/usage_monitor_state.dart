@@ -18,14 +18,7 @@ class UsageMonitorLoadedState extends UsageMonitorState {
   List<Object?> get props => [usageData];
 }
 
-class UsageMonitorDeletedState extends UsageMonitorState {
-  final bool success;
-
-  UsageMonitorDeletedState({required this.success});
-
-  @override
-  List<Object?> get props => [success];
-}
+class UsageMonitorDeletedState extends UsageMonitorState {}
 
 class UsageMonitorErrorState extends UsageMonitorState {
   final BaseError error;

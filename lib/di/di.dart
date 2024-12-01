@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:enpal_monitor/core/network/dio_configuration.dart';
 import 'package:enpal_monitor/core/network/network_client.dart';
 import 'package:enpal_monitor/e2e/fake_network_client_impl.dart';
+import 'package:enpal_monitor/features/usage_monitor/data/local/dao/usage_monitor_local_dao.dart';
+import 'package:enpal_monitor/features/usage_monitor/data/local/usage_monitor_local_data_source.dart';
+import 'package:enpal_monitor/features/usage_monitor/data/local/usage_monitor_local_data_source_impl.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/mapper/usage_monitor_mapper.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/network/usage_monitor_network_data_source.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/network/usage_monitor_network_data_source_impl.dart';
@@ -37,11 +40,22 @@ void setup() {
       getIt.get(),
     ),
   );
+
   getIt.registerLazySingleton<UsageMonitorMapper>(
     () => UsageMonitorEntityMapperImpl(),
   );
+
+  getIt.registerLazySingleton<UsageMonitorDataLocalDao>(
+    () => UsageMonitorDataLocalDao.instance,
+  );
+
+  getIt.registerLazySingleton<UsageMonitorLocalDataSource>(
+    () => UsageMonitorLocalDataSourceImpl(getIt.get()),
+  );
+
   getIt.registerLazySingleton<UsageMonitorRepository>(
     () => UsageMonitorRepositoryImpl(
+      getIt.get(),
       getIt.get(),
       getIt.get(),
     ),

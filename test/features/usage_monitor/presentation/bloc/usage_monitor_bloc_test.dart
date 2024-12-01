@@ -312,9 +312,7 @@ void main() {
             DeleteAllUsageMonitorEvent(),
           ),
           expect: () => <UsageMonitorState>[
-            UsageMonitorDeletedState(
-              success: true,
-            ),
+            UsageMonitorDeletedState(),
           ],
           verify: (_) {
             verify(
@@ -339,9 +337,7 @@ void main() {
             DeleteAllUsageMonitorEvent(),
           ),
           expect: () => <UsageMonitorState>[
-            UsageMonitorDeletedState(
-              success: false,
-            ),
+            UsageMonitorDeletedState(),
           ],
           verify: (_) {
             verify(

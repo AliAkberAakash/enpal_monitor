@@ -1,5 +1,6 @@
 import 'package:enpal_monitor/core/exceptions/network_exceptions.dart';
 import 'package:enpal_monitor/core/exceptions/server_exception.dart';
+import 'package:enpal_monitor/features/usage_monitor/data/local/dao/usage_monitor_data_local.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/network/dto/usage_monitor_response.dart';
 import 'package:enpal_monitor/features/usage_monitor/domain/entity/usage_monitor_entity.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
@@ -11,6 +12,24 @@ abstract class UsageMonitorMapper {
 
   List<UsageMonitorEntity> entityListFromUsageMonitorNetworkResponse(
     final List<UsageMonitorResponse> responseList,
+  );
+
+  UsageMonitorEntity entityFromUsageMonitorDataLocal(
+    final UsageMonitorDataLocal usageMonitorDataLocal,
+  );
+
+  List<UsageMonitorEntity> entityListFromUsageMonitorDataLocal(
+    final List<UsageMonitorDataLocal> usageMonitorLocalDataList,
+  );
+
+  UsageMonitorDataLocal usageMonitorDataLocalFromNetworkResponse(
+    final UsageMonitorResponse usageMonitorResponse,
+    final String commonId,
+  );
+
+  List<UsageMonitorDataLocal> usageMonitorDataLocalListFromNetworkResponse(
+    final List<UsageMonitorResponse> usageMonitorResponseList,
+    final String commonId,
   );
 
   BaseError errorFromException(final dynamic e);
@@ -27,6 +46,66 @@ class UsageMonitorEntityMapperImpl implements UsageMonitorMapper {
   }
 
   @override
+  List<UsageMonitorEntity> entityListFromUsageMonitorNetworkResponse(
+    List<UsageMonitorResponse> responseList,
+  ) {
+    final entityList = responseList
+        .map(
+          (response) => entityFromUsageMonitorNetworkResponse(response),
+        )
+        .toList();
+    return entityList;
+  }
+
+  @override
+  UsageMonitorEntity entityFromUsageMonitorDataLocal(
+      UsageMonitorDataLocal usageMonitorDataLocal) {
+    return UsageMonitorEntity(
+      usageMonitorDataLocal.timestamp.millisecondsSinceEpoch.toDouble(),
+      usageMonitorDataLocal.value.toDouble(),
+    );
+  }
+
+  @override
+  List<UsageMonitorEntity> entityListFromUsageMonitorDataLocal(
+    List<UsageMonitorDataLocal> usageMonitorLocalDataList,
+  ) {
+    final entityList = usageMonitorLocalDataList
+        .map(
+          (localData) => entityFromUsageMonitorDataLocal(localData),
+        )
+        .toList();
+    return entityList;
+  }
+
+  @override
+  UsageMonitorDataLocal usageMonitorDataLocalFromNetworkResponse(
+    final UsageMonitorResponse usageMonitorResponse,
+    final String commonId,
+  ) {
+    return UsageMonitorDataLocal(
+      usageMonitorResponse.timestamp,
+      usageMonitorResponse.value,
+      commonId,
+    );
+  }
+
+  @override
+  List<UsageMonitorDataLocal> usageMonitorDataLocalListFromNetworkResponse(
+    final List<UsageMonitorResponse> usageMonitorResponseList,
+    final String commonId,
+  ) {
+    return usageMonitorResponseList
+        .map(
+          (response) => usageMonitorDataLocalFromNetworkResponse(
+            response,
+            commonId,
+          ),
+        )
+        .toList();
+  }
+
+  @override
   BaseError errorFromException(final dynamic e) {
     switch (e.runtimeType) {
       case const (ServerException):
@@ -40,26 +119,5 @@ class UsageMonitorEntityMapperImpl implements UsageMonitorMapper {
       default:
         return CommonError();
     }
-  }
-
-  @override
-  List<UsageMonitorEntity> entityListFromUsageMonitorNetworkResponse(
-    List<UsageMonitorResponse> responseList,
-  ) {
-    return _aggregateData(responseList);
-  }
-
-  List<UsageMonitorEntity> _aggregateData(List<UsageMonitorResponse> points) {
-    const int interval = 12;
-    return List.generate((points.length / interval).ceil(), (index) {
-      final sublist = points.skip(index * interval).take(interval);
-      final avgValue =
-          sublist.map((p) => p.value).reduce((a, b) => a + b) / sublist.length;
-      return UsageMonitorEntity(
-        sublist.first.timestamp.millisecondsSinceEpoch.toDouble(),
-        // Use the timestamp of the first point in the interval
-        avgValue.floorToDouble(),
-      );
-    });
   }
 }

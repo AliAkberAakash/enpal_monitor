@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:enpal_monitor/features/usage_monitor/domain/repository/usage_monitor_repository.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_event.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_state.dart';
@@ -47,9 +46,8 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
     final Emitter<UsageMonitorState> emit,
   ) async {
     try {
-      final result =
-          await usageMonitorRepository.deleteDeleteAllUsageMonitorData();
-      emit(UsageMonitorDeletedState(success: result));
+      await usageMonitorRepository.deleteDeleteAllUsageMonitorData();
+      emit(UsageMonitorDeletedState());
     } catch (error) {
       _handleError(emit, error);
     }
@@ -70,4 +68,17 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
       );
     }
   }
+  //
+  // List<UsageMonitorEntity> _aggregateData(List<UsageMonitorEntity> points) {
+  //   const int interval = 12;
+  //   return List.generate((points.length / interval).ceil(), (index) {
+  //     final sublist = points.skip(index * interval).take(interval);
+  //     final avgValue =
+  //         sublist.map((p) => p.value).reduce((a, b) => a + b) / sublist.length;
+  //     return UsageMonitorEntity(
+  //       sublist.first.timestamp,
+  //       avgValue.floorToDouble(),
+  //     );
+  //   });
+  // }
 }

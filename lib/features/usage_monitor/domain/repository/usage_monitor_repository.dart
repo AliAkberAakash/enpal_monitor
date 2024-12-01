@@ -6,5 +6,5 @@ abstract class UsageMonitorRepository {
     required final String type,
   });
 
-  Future<bool> deleteDeleteAllUsageMonitorData();
+  Future<void> deleteDeleteAllUsageMonitorData();
 }
