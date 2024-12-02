@@ -15,7 +15,8 @@ Developed by: Ali Akber
 
 ## 0. Overview
 
-The mobile application for showing and monitoring power generation and consumption.
+The mobile application for showing and monitoring power generation and consumption. 
+I have used an aggregate data to make the graph look visually pleasing.
 
 Features include:
 - Solar data generation graph
