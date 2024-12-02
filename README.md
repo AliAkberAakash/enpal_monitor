@@ -34,7 +34,13 @@ Features include:
 
 ### Video Showcase
 
-todo: add video link
+Light Theme Android
+
+https://github.com/user-attachments/assets/de7aa67d-df2c-46eb-9211-2a26079c3851
+
+Dark Theme Android
+
+https://github.com/user-attachments/assets/073e7361-4be3-4096-b476-23d05e2f1530
 
 ## 1. Setup Instructions
 
