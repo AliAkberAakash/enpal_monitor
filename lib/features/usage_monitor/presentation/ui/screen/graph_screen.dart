@@ -73,6 +73,7 @@ class GraphScreen extends StatelessWidget {
                     return GraphWidget(
                       key: UniqueKey(),
                       points: state.usageData,
+                      usageUnit: state.usageUnit,
                     );
                   } else if (state is UsageMonitorDeletedState) {
                     return Center(

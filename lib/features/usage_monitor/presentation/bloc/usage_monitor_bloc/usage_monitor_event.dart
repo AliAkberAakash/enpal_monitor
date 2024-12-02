@@ -24,3 +24,5 @@ class DeleteUsageMonitorEvent extends UsageMonitorEvent {
   @override
   List<Object?> get props => [date];
 }
+
+class ChangeUsageUnitEvent extends UsageMonitorEvent {}

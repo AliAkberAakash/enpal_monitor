@@ -8,6 +8,7 @@ import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_mon
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_event.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_state.dart';
 import 'package:enpal_monitor/features/usage_monitor/util/usage_type.dart';
+import 'package:enpal_monitor/features/usage_monitor/util/usage_unit.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -281,6 +282,7 @@ void main() {
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
             UsageMonitorLoadedState(
+              usageUnit: UsageUnit.watt,
               usageData: successResponse
                   .map(
                     (point) => FlSpot(
@@ -322,6 +324,7 @@ void main() {
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
             UsageMonitorLoadedState(
+              usageUnit: UsageUnit.watt,
               usageData: [],
             ),
           ],

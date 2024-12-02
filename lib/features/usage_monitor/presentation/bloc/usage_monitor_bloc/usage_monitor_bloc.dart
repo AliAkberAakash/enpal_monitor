@@ -6,9 +6,12 @@ import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_mon
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_state.dart';
 import 'package:enpal_monitor/features/usage_monitor/util/constants.dart';
 import 'package:enpal_monitor/features/usage_monitor/util/usage_type.dart';
+import 'package:enpal_monitor/features/usage_monitor/util/usage_unit.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+const int _unitFactor = 1000;
 
 class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
   final UsageType type;
@@ -22,6 +25,7 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
   ) : super(UsageMonitorLoadingState()) {
     on<LoadUsageMonitorEvent>(_onLoadUsageMonitorEvent);
     on<DeleteUsageMonitorEvent>(_onDeleteAllUsageMonitorEvent);
+    on<ChangeUsageUnitEvent>(_onChangeUsageUnitEvent);
   }
 
   FutureOr<void> _onLoadUsageMonitorEvent(
@@ -47,6 +51,7 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
       emit(
         UsageMonitorLoadedState(
           usageData: flSpots,
+          usageUnit: UsageUnit.watt,
         ),
       );
     } catch (error) {
@@ -85,6 +90,7 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
       );
     }
   }
+
 //
 // List<UsageMonitorEntity> _aggregateData(List<UsageMonitorEntity> points) {
 //   const int interval = 12;
@@ -98,4 +104,41 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
 //     );
 //   });
 // }
+
+  FutureOr<void> _onChangeUsageUnitEvent(
+      final ChangeUsageUnitEvent event, final Emitter<UsageMonitorState> emit) {
+    if (state is UsageMonitorLoadedState) {
+      final usageData = (state as UsageMonitorLoadedState).usageData;
+      final usageUnit = (state as UsageMonitorLoadedState).usageUnit;
+      if (usageUnit == UsageUnit.watt) {
+        emit(
+          UsageMonitorLoadedState(
+            usageData: usageData
+                .map(
+                  (data) => FlSpot(
+                    data.x,
+                    data.y / _unitFactor,
+                  ),
+                )
+                .toList(),
+            usageUnit: UsageUnit.kiloWatt,
+          ),
+        );
+      } else {
+        emit(
+          UsageMonitorLoadedState(
+            usageData: usageData
+                .map(
+                  (data) => FlSpot(
+                    data.x,
+                    data.y * _unitFactor,
+                  ),
+                )
+                .toList(),
+            usageUnit: UsageUnit.watt,
+          ),
+        );
+      }
+    }
+  }
 }

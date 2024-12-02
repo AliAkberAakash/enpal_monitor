@@ -1,10 +1,16 @@
 import 'package:enpal_design_system/styles/util/extensions.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/ui/screen/widget/x_axis_title_widget.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/ui/screen/widget/y_axis_title_widget.dart';
+import 'package:enpal_monitor/features/usage_monitor/util/usage_unit.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-const double maxYAxisValue = 10000;
+const double maxYAxisValueForWatt = 10000;
+const double maxYAxisValueForKiloWatt = 13;
+const double yAxisDifferenceForWatt = 1000;
+const double yAxisDifferenceForKiloWatt = 1;
+const double leftTitleSizeForWatt = 60;
+const double leftTitleSizeForKiloWatt = 50;
 const double minYAxisValue = 0;
 const _interval = 4 * 60 * 60 * 1000.0;
 const underGraphGradient = LinearGradient(
@@ -22,10 +28,12 @@ const lineGradient = LinearGradient(
 
 class GraphWidget extends StatelessWidget {
   final List<FlSpot> points;
+  final UsageUnit usageUnit;
 
   const GraphWidget({
     super.key,
     required this.points,
+    required this.usageUnit,
   });
 
   @override
@@ -35,7 +43,9 @@ class GraphWidget extends StatelessWidget {
     return LineChart(
       chartRendererKey: UniqueKey(),
       LineChartData(
-        maxY: maxYAxisValue,
+        maxY: usageUnit == UsageUnit.watt
+            ? maxYAxisValueForWatt
+            : maxYAxisValueForKiloWatt,
         minY: minYAxisValue,
         lineBarsData: [
           LineChartBarData(
@@ -91,12 +101,16 @@ class GraphWidget extends StatelessWidget {
           ),
           leftTitles: AxisTitles(
             sideTitles: SideTitles(
-              reservedSize: 60,
+              reservedSize: usageUnit == UsageUnit.watt
+                  ? leftTitleSizeForWatt
+                  : leftTitleSizeForKiloWatt,
               showTitles: true,
-              interval: 1000,
+              interval: usageUnit == UsageUnit.watt
+                  ? yAxisDifferenceForWatt
+                  : yAxisDifferenceForKiloWatt,
               getTitlesWidget: (value, meta) => YAxisTitleWidget(
                 key: UniqueKey(),
-                title: "w",
+                title: usageUnit.value,
                 value: value.toInt(),
                 meta: meta,
               ),

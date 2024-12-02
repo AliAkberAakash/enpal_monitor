@@ -67,9 +67,9 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             IconButton(
-              onPressed: _showWarningDialog,
+              onPressed: _changeUnit,
               icon: Icon(
-                Icons.delete_outline_outlined,
+                Icons.change_circle_outlined,
               ),
             ),
           ],
@@ -80,29 +80,51 @@ class _HomeScreenState extends State<HomeScreen>
         ),
         body: Padding(
           padding: EdgeInsets.all(theme.spacingTokens.cwSpacing8),
-          child: TabBarView(
-            controller: _tabController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GraphScreen(
-                key: UniqueKey(),
-                title: "Solar Generation",
-                usageMonitorBloc: _solarEnergyBloc,
-                dateSelectorCubit: _dateSelectorCubit,
-                onRefresh: _onSolarScreenRefresh,
+              Flexible(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    GraphScreen(
+                      key: UniqueKey(),
+                      title: "Solar Generation",
+                      usageMonitorBloc: _solarEnergyBloc,
+                      dateSelectorCubit: _dateSelectorCubit,
+                      onRefresh: _onSolarScreenRefresh,
+                    ),
+                    GraphScreen(
+                      key: UniqueKey(),
+                      title: "Home Consumption",
+                      usageMonitorBloc: _homeConsumptionBloc,
+                      dateSelectorCubit: _dateSelectorCubit,
+                      onRefresh: _onHomeScreenRefresh,
+                    ),
+                    GraphScreen(
+                      key: UniqueKey(),
+                      title: "Battery Consumption",
+                      usageMonitorBloc: _batteryConsumptionBloc,
+                      dateSelectorCubit: _dateSelectorCubit,
+                      onRefresh: _onBatteryScreenRefresh,
+                    ),
+                  ],
+                ),
               ),
-              GraphScreen(
-                key: UniqueKey(),
-                title: "Home Consumption",
-                usageMonitorBloc: _homeConsumptionBloc,
-                dateSelectorCubit: _dateSelectorCubit,
-                onRefresh: _onHomeScreenRefresh,
+              SizedBox(
+                height: theme.spacingTokens.cwSpacing24,
               ),
-              GraphScreen(
-                key: UniqueKey(),
-                title: "Battery Consumption",
-                usageMonitorBloc: _batteryConsumptionBloc,
-                dateSelectorCubit: _dateSelectorCubit,
-                onRefresh: _onBatteryScreenRefresh,
+              MaterialButton(
+                color: theme.colorScheme.errorContainer,
+                onPressed: _showWarningDialog,
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Center(
+                    child: Text(
+                      "Delete All Data",
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
@@ -209,6 +231,18 @@ class _HomeScreenState extends State<HomeScreen>
       DeleteUsageMonitorEvent(
         _dateSelectorCubit.state,
       ),
+    );
+  }
+
+  void _changeUnit() {
+    _solarEnergyBloc.add(
+      ChangeUsageUnitEvent(),
+    );
+    _homeConsumptionBloc.add(
+      ChangeUsageUnitEvent(),
+    );
+    _batteryConsumptionBloc.add(
+      ChangeUsageUnitEvent(),
     );
   }
 }
