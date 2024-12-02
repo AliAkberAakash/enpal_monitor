@@ -21,8 +21,10 @@ void main() {
   group("UsageMonitorBloc", () {
     setUp(() {
       mockUsageMonitorRepository = MockUsageMonitorRepository();
-      usageMonitorBloc =
-          UsageMonitorBloc(mockUsageMonitorRepository, UsageType.solar);
+      usageMonitorBloc = UsageMonitorBloc(
+        mockUsageMonitorRepository,
+        UsageType.home,
+      );
     });
 
     test("Initial state is UsageMonitorLoadingState", () {
@@ -36,10 +38,17 @@ void main() {
           "Emits [UsageMonitorLoadingState, UsageMonitorErrorState(error: ServerError())] when repository throws ServerError",
           build: () => usageMonitorBloc,
           setUp: () {
-            when(() =>
-                mockUsageMonitorRepository.getUsageMonitorData(
-                    date: "2024-10-20", type: "home")).thenThrow(
-                ServerError(statusCode: 500, statusMessage: "Server Error"));
+            when(
+              () => mockUsageMonitorRepository.getUsageMonitorData(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).thenThrow(
+              ServerError(
+                statusCode: 500,
+                statusMessage: "Server Error",
+              ),
+            );
           },
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
@@ -49,14 +58,19 @@ void main() {
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
             UsageMonitorErrorState(
-                error: ServerError(
-                    statusCode: 500, statusMessage: "Server Error")),
+              error: ServerError(
+                statusCode: 500,
+                statusMessage: "Server Error",
+              ),
+            ),
           ],
           verify: (_) {
-            verify(() => mockUsageMonitorRepository.getUsageMonitorData(
-                  date: "2024-10-20",
-                  type: "home",
-                )).called(1);
+            verify(
+              () => mockUsageMonitorRepository.getUsageMonitorData(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).called(1);
           },
         );
 
@@ -197,10 +211,14 @@ void main() {
           "Emits [UsageMonitorLoadingState, UsageMonitorLoadedState] when repository returns success response",
           build: () => usageMonitorBloc,
           setUp: () {
-            when(() => mockUsageMonitorRepository.getUsageMonitorData(
-                  date: "2024-10-20",
-                  type: "home",
-                )).thenAnswer((_) async => successResponse);
+            when(
+              () => mockUsageMonitorRepository.getUsageMonitorData(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).thenAnswer(
+              (_) async => successResponse,
+            );
           },
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
@@ -214,10 +232,12 @@ void main() {
             ),
           ],
           verify: (_) {
-            verify(() => mockUsageMonitorRepository.getUsageMonitorData(
-                  date: "2024-10-20",
-                  type: "home",
-                )).called(1);
+            verify(
+              () => mockUsageMonitorRepository.getUsageMonitorData(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).called(1);
           },
         );
 
@@ -225,10 +245,14 @@ void main() {
           "Emits [UsageMonitorLoadingState, UsageMonitorLoadedState] when repository returns empty success response",
           build: () => usageMonitorBloc,
           setUp: () {
-            when(() => mockUsageMonitorRepository.getUsageMonitorData(
-                  date: "2024-10-20",
-                  type: "home",
-                )).thenAnswer((_) async => []);
+            when(
+              () => mockUsageMonitorRepository.getUsageMonitorData(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).thenAnswer(
+              (_) async => [],
+            );
           },
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
@@ -242,8 +266,12 @@ void main() {
             ),
           ],
           verify: (_) {
-            verify(() => mockUsageMonitorRepository.getUsageMonitorData(
-                date: "2024-10-20", type: "home")).called(1);
+            verify(
+              () => mockUsageMonitorRepository.getUsageMonitorData(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).called(1);
           },
         );
       });
@@ -256,20 +284,27 @@ void main() {
           build: () => usageMonitorBloc,
           setUp: () {
             when(
-              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteUsageMonitorDataByCommonId(
+                date: "2024-10-20",
+                type: "home",
+              ),
             ).thenThrow(CommonError());
           },
           act: (bloc) => bloc.add(
             DeleteUsageMonitorEvent(
-              DateTime.now(),
+              DateTime.parse("2024-10-20"),
             ),
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorErrorState(error: CommonError()),
           ],
           verify: (_) {
-            verify(() => mockUsageMonitorRepository.deleteAllUsageMonitorData())
-                .called(1);
+            verify(
+              () => mockUsageMonitorRepository.deleteUsageMonitorDataByCommonId(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).called(1);
           },
         );
 
@@ -278,12 +313,15 @@ void main() {
           build: () => usageMonitorBloc,
           setUp: () {
             when(
-              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteUsageMonitorDataByCommonId(
+                date: "2024-10-20",
+                type: "home",
+              ),
             ).thenThrow(SocketException(""));
           },
           act: (bloc) => bloc.add(
             DeleteUsageMonitorEvent(
-              DateTime.now(),
+              DateTime.parse("2024-10-20"),
             ),
           ),
           expect: () => <UsageMonitorState>[
@@ -291,7 +329,10 @@ void main() {
           ],
           verify: (_) {
             verify(
-              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteUsageMonitorDataByCommonId(
+                date: "2024-10-20",
+                type: "home",
+              ),
             ).called(1);
           },
         );
@@ -303,14 +344,17 @@ void main() {
           build: () => usageMonitorBloc,
           setUp: () {
             when(
-              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteUsageMonitorDataByCommonId(
+                date: "2024-10-20",
+                type: "home",
+              ),
             ).thenAnswer(
-              (_) async => true,
+              (_) async {},
             );
           },
           act: (bloc) => bloc.add(
             DeleteUsageMonitorEvent(
-              DateTime.now(),
+              DateTime.parse("2024-10-20"),
             ),
           ),
           expect: () => <UsageMonitorState>[
@@ -318,7 +362,10 @@ void main() {
           ],
           verify: (_) {
             verify(
-              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteUsageMonitorDataByCommonId(
+                date: "2024-10-20",
+                type: "home",
+              ),
             ).called(1);
           },
         );
@@ -328,14 +375,17 @@ void main() {
           build: () => usageMonitorBloc,
           setUp: () {
             when(
-              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteUsageMonitorDataByCommonId(
+                date: "2024-10-20",
+                type: "home",
+              ),
             ).thenAnswer(
-              (_) async => false,
+              (_) async {},
             );
           },
           act: (bloc) => bloc.add(
             DeleteUsageMonitorEvent(
-              DateTime.now(),
+              DateTime.parse("2024-10-20"),
             ),
           ),
           expect: () => <UsageMonitorState>[
@@ -343,7 +393,10 @@ void main() {
           ],
           verify: (_) {
             verify(
-              () => mockUsageMonitorRepository.deleteAllUsageMonitorData(),
+              () => mockUsageMonitorRepository.deleteUsageMonitorDataByCommonId(
+                date: "2024-10-20",
+                type: "home",
+              ),
             ).called(1);
           },
         );
