@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class UsageMonitorEntity extends Equatable {
-  final double timestamp;
+  final int timestamp;
   final double value;
 
   const UsageMonitorEntity(this.timestamp, this.value);

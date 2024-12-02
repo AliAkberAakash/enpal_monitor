@@ -237,26 +237,22 @@ void main() {
         final successResponse = [
           UsageMonitorEntity(
             DateTime.parse("2024-10-20T00:00:00.000Z")
-                .millisecondsSinceEpoch
-                .toDouble(),
+                .millisecondsSinceEpoch,
             2744,
           ),
           UsageMonitorEntity(
             DateTime.parse("2024-10-20T00:00:00.000Z")
-                .millisecondsSinceEpoch
-                .toDouble(),
+                .millisecondsSinceEpoch,
             6033,
           ),
           UsageMonitorEntity(
             DateTime.parse("2024-10-20T00:00:00.000Z")
-                .millisecondsSinceEpoch
-                .toDouble(),
+                .millisecondsSinceEpoch,
             6753,
           ),
           UsageMonitorEntity(
             DateTime.parse("2024-10-20T00:00:00.000Z")
-                .millisecondsSinceEpoch
-                .toDouble(),
+                .millisecondsSinceEpoch,
             5476,
           ),
         ];

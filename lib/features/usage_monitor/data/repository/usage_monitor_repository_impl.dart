@@ -52,13 +52,11 @@ class UsageMonitorRepositoryImpl implements UsageMonitorRepository {
 
       /// Save network data to local storage
       await _usageMonitorLocalDataSource.insertUsageMonitorData(
-          data: localDataToSave);
-
-      final entityList =
-          compute<List<UsageMonitorResponse>, List<UsageMonitorEntity>>(
-        _usageMonitorEntityMapper.entityListFromUsageMonitorNetworkResponse,
-        responseList,
+        data: localDataToSave,
       );
+
+      final entityList = _usageMonitorEntityMapper
+          .entityListFromUsageMonitorNetworkResponse(responseList);
 
       return entityList;
     } catch (e) {

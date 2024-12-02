@@ -40,7 +40,7 @@ class UsageMonitorEntityMapperImpl implements UsageMonitorMapper {
   UsageMonitorEntity entityFromUsageMonitorNetworkResponse(
       UsageMonitorResponse usageMonitorResponse) {
     return UsageMonitorEntity(
-      usageMonitorResponse.timestamp.millisecondsSinceEpoch.toDouble(),
+      usageMonitorResponse.timestamp.millisecondsSinceEpoch,
       usageMonitorResponse.value.toDouble(),
     );
   }
@@ -61,7 +61,7 @@ class UsageMonitorEntityMapperImpl implements UsageMonitorMapper {
   UsageMonitorEntity entityFromUsageMonitorDataLocal(
       UsageMonitorDataLocal usageMonitorDataLocal) {
     return UsageMonitorEntity(
-      usageMonitorDataLocal.timestamp.millisecondsSinceEpoch.toDouble(),
+      usageMonitorDataLocal.timestamp.millisecondsSinceEpoch,
       usageMonitorDataLocal.value.toDouble(),
     );
   }
