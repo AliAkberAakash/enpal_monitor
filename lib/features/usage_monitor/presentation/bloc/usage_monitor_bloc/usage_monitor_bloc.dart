@@ -50,7 +50,7 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
 
       emit(
         UsageMonitorLoadedState(
-          usageData: flSpots,
+          usageData: _aggregateData(flSpots),
           usageUnit: UsageUnit.watt,
         ),
       );
@@ -91,19 +91,19 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
     }
   }
 
-//
-// List<UsageMonitorEntity> _aggregateData(List<UsageMonitorEntity> points) {
-//   const int interval = 12;
-//   return List.generate((points.length / interval).ceil(), (index) {
-//     final sublist = points.skip(index * interval).take(interval);
-//     final avgValue =
-//         sublist.map((p) => p.value).reduce((a, b) => a + b) / sublist.length;
-//     return UsageMonitorEntity(
-//       sublist.first.timestamp,
-//       avgValue.floorToDouble(),
-//     );
-//   });
-// }
+
+List<FlSpot> _aggregateData(List<FlSpot> points) {
+  const int interval = 12;
+  return List.generate((points.length / interval).ceil(), (index) {
+    final sublist = points.skip(index * interval).take(interval);
+    final avgValue =
+        sublist.map((p) => p.y).reduce((a, b) => a + b) / sublist.length;
+    return FlSpot(
+      sublist.first.x,
+      avgValue.floorToDouble(),
+    );
+  });
+}
 
   FutureOr<void> _onChangeUsageUnitEvent(
       final ChangeUsageUnitEvent event, final Emitter<UsageMonitorState> emit) {
