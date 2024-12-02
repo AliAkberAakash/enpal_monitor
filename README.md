@@ -97,7 +97,7 @@ The application was developed in a very short time, so there are some places whi
 - A collection-document based local-data store would have been a better choice, due to time constraints I used sqflite.
 - More unit tests could be added
 
-## 4. Final Notes
+## 5. Final Notes
 
 #### Doing this assignment was fun!
 
