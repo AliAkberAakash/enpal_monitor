@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:enpal_monitor/features/usage_monitor/domain/error/error.dart';
 import 'package:enpal_monitor/features/usage_monitor/domain/repository/usage_monitor_repository.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_event.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_state.dart';
-import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
 import 'package:enpal_monitor/features/usage_monitor/util/constants.dart';
 import 'package:enpal_monitor/features/usage_monitor/util/usage_type.dart';
 import 'package:fl_chart/fl_chart.dart';

@@ -1,4 +1,4 @@
-import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
+import 'package:enpal_monitor/features/usage_monitor/domain/error/error.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fl_chart/fl_chart.dart';
 

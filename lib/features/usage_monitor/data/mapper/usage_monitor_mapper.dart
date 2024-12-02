@@ -3,7 +3,7 @@ import 'package:enpal_monitor/core/exceptions/server_exception.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/local/dao/usage_monitor_data_local.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/network/dto/usage_monitor_response.dart';
 import 'package:enpal_monitor/features/usage_monitor/domain/entity/usage_monitor_entity.dart';
-import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
+import 'package:enpal_monitor/features/usage_monitor/domain/error/error.dart';
 
 abstract class UsageMonitorMapper {
   UsageMonitorEntity entityFromUsageMonitorNetworkResponse(

@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:enpal_monitor/features/usage_monitor/domain/entity/usage_monitor_entity.dart';
+import 'package:enpal_monitor/features/usage_monitor/domain/error/error.dart';
 import 'package:enpal_monitor/features/usage_monitor/domain/repository/usage_monitor_repository.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_bloc.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_event.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_state.dart';
-import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
 import 'package:enpal_monitor/features/usage_monitor/util/usage_type.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_test/flutter_test.dart';
