@@ -1,4 +1,5 @@
 import 'package:enpal_design_system/styles/util/extensions.dart';
+import 'package:enpal_monitor/features/common/error/error_screen.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/date_selector_cubit/date_selector_cubit.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_bloc.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_state.dart';
@@ -77,9 +78,13 @@ class GraphScreen extends StatelessWidget {
                     return Center(
                       child: Text("Please select a date or refresh the screen"),
                     );
+                  } else if (state is UsageMonitorErrorState) {
+                    return ErrorScreen(
+                      errorMessage: state.errorMessage,
+                    );
                   } else {
-                    return Center(
-                      child: Text("Failed to load graph data"),
+                    return ErrorScreen(
+                      errorMessage: "Something went wrong",
                     );
                   }
                 },

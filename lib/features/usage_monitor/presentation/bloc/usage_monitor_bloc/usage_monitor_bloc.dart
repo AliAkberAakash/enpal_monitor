@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:enpal_monitor/features/common/error/error_message_mapper.dart';
 import 'package:enpal_monitor/features/usage_monitor/domain/error/error.dart';
 import 'package:enpal_monitor/features/usage_monitor/domain/repository/usage_monitor_repository.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_event.dart';
@@ -12,9 +13,11 @@ import 'package:intl/intl.dart';
 class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
   final UsageType type;
   final UsageMonitorRepository usageMonitorRepository;
+  final ErrorMessageMapper errorMessageMapper;
 
   UsageMonitorBloc(
     this.usageMonitorRepository,
+    this.errorMessageMapper,
     this.type,
   ) : super(UsageMonitorLoadingState()) {
     on<LoadUsageMonitorEvent>(_onLoadUsageMonitorEvent);
@@ -71,13 +74,13 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
     if (error is BaseError) {
       emit(
         UsageMonitorErrorState(
-          error: error,
+          errorMessage: errorMessageMapper.mapErrorToMessage(error),
         ),
       );
     } else {
       emit(
         UsageMonitorErrorState(
-          error: CommonError(),
+          errorMessage: errorMessageMapper.mapErrorToMessage(CommonError()),
         ),
       );
     }

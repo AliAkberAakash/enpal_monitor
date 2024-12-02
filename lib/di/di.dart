@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:enpal_monitor/core/network/dio_configuration.dart';
 import 'package:enpal_monitor/core/network/network_client.dart';
 import 'package:enpal_monitor/e2e/fake_network_client_impl.dart';
+import 'package:enpal_monitor/features/common/error/error_message_mapper.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/local/dao/usage_monitor_local_dao.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/local/usage_monitor_local_data_source.dart';
 import 'package:enpal_monitor/features/usage_monitor/data/local/usage_monitor_local_data_source_impl.dart';
@@ -60,9 +61,19 @@ void setup() {
       getIt.get(),
     ),
   );
-  getIt.registerFactoryParam<UsageMonitorBloc, UsageType, void>(
-    (type, _) => UsageMonitorBloc(getIt.get(), type),
+
+  getIt.registerLazySingleton<ErrorMessageMapper>(
+    () => ErrorMessageMapperImpl(),
   );
+
+  getIt.registerFactoryParam<UsageMonitorBloc, UsageType, void>(
+    (type, _) => UsageMonitorBloc(
+      getIt.get(),
+      getIt.get(),
+      type,
+    ),
+  );
+
   getIt.registerFactory<DateSelectorCubit>(
     () => DateSelectorCubit(DateTime.now()),
   );

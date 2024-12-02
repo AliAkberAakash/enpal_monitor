@@ -1,4 +1,3 @@
-import 'package:enpal_monitor/features/usage_monitor/domain/error/error.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -21,10 +20,10 @@ class UsageMonitorLoadedState extends UsageMonitorState {
 class UsageMonitorDeletedState extends UsageMonitorState {}
 
 class UsageMonitorErrorState extends UsageMonitorState {
-  final BaseError error;
+  final String errorMessage;
 
-  UsageMonitorErrorState({required this.error});
+  UsageMonitorErrorState({required this.errorMessage});
 
   @override
-  List<Object?> get props => [error];
+  List<Object?> get props => [errorMessage];
 }

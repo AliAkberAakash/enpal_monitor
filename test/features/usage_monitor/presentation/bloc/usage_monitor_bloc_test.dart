@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:enpal_monitor/features/common/error/error_message_mapper.dart';
 import 'package:enpal_monitor/features/usage_monitor/domain/entity/usage_monitor_entity.dart';
 import 'package:enpal_monitor/features/usage_monitor/domain/error/error.dart';
 import 'package:enpal_monitor/features/usage_monitor/domain/repository/usage_monitor_repository.dart';
@@ -15,15 +16,20 @@ import 'package:bloc_test/bloc_test.dart';
 class MockUsageMonitorRepository extends Mock
     implements UsageMonitorRepository {}
 
+class MockErrorMessageMapper extends Mock implements ErrorMessageMapper {}
+
 void main() {
   late UsageMonitorBloc usageMonitorBloc;
+  late ErrorMessageMapper mockErrorMessageMapper;
   late UsageMonitorRepository mockUsageMonitorRepository;
 
   group("UsageMonitorBloc", () {
     setUp(() {
       mockUsageMonitorRepository = MockUsageMonitorRepository();
+      mockErrorMessageMapper = MockErrorMessageMapper();
       usageMonitorBloc = UsageMonitorBloc(
         mockUsageMonitorRepository,
+        mockErrorMessageMapper,
         UsageType.home,
       );
     });
@@ -50,6 +56,12 @@ void main() {
                 statusMessage: "Server Error",
               ),
             );
+            when(() => mockErrorMessageMapper.mapErrorToMessage(ServerError(
+                  statusCode: 500,
+                  statusMessage: "Server Error",
+                ))).thenAnswer(
+              (_) => "Server Error",
+            );
           },
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
@@ -59,10 +71,7 @@ void main() {
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
             UsageMonitorErrorState(
-              error: ServerError(
-                statusCode: 500,
-                statusMessage: "Server Error",
-              ),
+              errorMessage: "Server Error",
             ),
           ],
           verify: (_) {
@@ -79,10 +88,19 @@ void main() {
           "Emits [UsageMonitorLoadingState, UsageMonitorErrorState(error: NetworkError())] when repository throws NetworkError",
           build: () => usageMonitorBloc,
           setUp: () {
-            when(() => mockUsageMonitorRepository.getUsageMonitorData(
-                  date: "2024-10-20",
-                  type: "home",
-                )).thenThrow(NetworkError());
+            when(
+              () => mockUsageMonitorRepository.getUsageMonitorData(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).thenThrow(NetworkError());
+            when(
+              () => mockErrorMessageMapper.mapErrorToMessage(
+                NetworkError(),
+              ),
+            ).thenAnswer(
+              (_) => "Failed to load data",
+            );
           },
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
@@ -91,13 +109,15 @@ void main() {
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
-            UsageMonitorErrorState(error: NetworkError()),
+            UsageMonitorErrorState(errorMessage: "Failed to load data"),
           ],
           verify: (_) {
-            verify(() => mockUsageMonitorRepository.getUsageMonitorData(
-                  date: "2024-10-20",
-                  type: "home",
-                )).called(1);
+            verify(
+              () => mockUsageMonitorRepository.getUsageMonitorData(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).called(1);
           },
         );
 
@@ -105,10 +125,19 @@ void main() {
           "Emits [UsageMonitorLoadingState, UsageMonitorErrorState(error: NetworkTimeoutError())] when repository throws NetworkTimeoutError",
           build: () => usageMonitorBloc,
           setUp: () {
-            when(() => mockUsageMonitorRepository.getUsageMonitorData(
-                  date: "2024-10-20",
-                  type: "home",
-                )).thenThrow(NetworkTimeoutError());
+            when(
+              () => mockUsageMonitorRepository.getUsageMonitorData(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).thenThrow(NetworkTimeoutError());
+            when(
+              () => mockErrorMessageMapper.mapErrorToMessage(
+                NetworkTimeoutError(),
+              ),
+            ).thenAnswer(
+              (_) => "Please check your internet connection",
+            );
           },
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
@@ -117,7 +146,8 @@ void main() {
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
-            UsageMonitorErrorState(error: NetworkTimeoutError()),
+            UsageMonitorErrorState(
+                errorMessage: "Please check your internet connection"),
           ],
           verify: (_) {
             verify(() => mockUsageMonitorRepository.getUsageMonitorData(
@@ -131,10 +161,21 @@ void main() {
           "Emits [UsageMonitorLoadingState, UsageMonitorErrorState(error: CommonError())] when repository throws CommonError",
           build: () => usageMonitorBloc,
           setUp: () {
-            when(() => mockUsageMonitorRepository.getUsageMonitorData(
-                  date: "2024-10-20",
-                  type: "home",
-                )).thenThrow(CommonError());
+            when(
+              () => mockUsageMonitorRepository.getUsageMonitorData(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).thenThrow(
+              CommonError(),
+            );
+            when(
+              () => mockErrorMessageMapper.mapErrorToMessage(
+                CommonError(),
+              ),
+            ).thenAnswer(
+              (_) => "Something went wrong",
+            );
           },
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
@@ -143,7 +184,7 @@ void main() {
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
-            UsageMonitorErrorState(error: CommonError()),
+            UsageMonitorErrorState(errorMessage: "Something went wrong"),
           ],
           verify: (_) {
             verify(() => mockUsageMonitorRepository.getUsageMonitorData(
@@ -157,10 +198,21 @@ void main() {
           "Emits [UsageMonitorLoadingState, UsageMonitorErrorState(error: CommonError())] when repository throws any other exception",
           build: () => usageMonitorBloc,
           setUp: () {
-            when(() => mockUsageMonitorRepository.getUsageMonitorData(
-                  date: "2024-10-20",
-                  type: "home",
-                )).thenThrow(SocketException(""));
+            when(
+              () => mockUsageMonitorRepository.getUsageMonitorData(
+                date: "2024-10-20",
+                type: "home",
+              ),
+            ).thenThrow(
+              SocketException(""),
+            );
+            when(
+              () => mockErrorMessageMapper.mapErrorToMessage(
+                CommonError(),
+              ),
+            ).thenAnswer(
+              (_) => "Something went wrong",
+            );
           },
           act: (bloc) => bloc.add(
             LoadUsageMonitorEvent(
@@ -169,7 +221,7 @@ void main() {
           ),
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
-            UsageMonitorErrorState(error: CommonError()),
+            UsageMonitorErrorState(errorMessage: "Something went wrong"),
           ],
           verify: (_) {
             verify(() => mockUsageMonitorRepository.getUsageMonitorData(
@@ -296,7 +348,16 @@ void main() {
                 date: "2024-10-20",
                 type: "home",
               ),
-            ).thenThrow(CommonError());
+            ).thenThrow(
+              CommonError(),
+            );
+            when(
+              () => mockErrorMessageMapper.mapErrorToMessage(
+                CommonError(),
+              ),
+            ).thenAnswer(
+              (_) => "Something went wrong",
+            );
           },
           act: (bloc) => bloc.add(
             DeleteUsageMonitorEvent(
@@ -304,7 +365,7 @@ void main() {
             ),
           ),
           expect: () => <UsageMonitorState>[
-            UsageMonitorErrorState(error: CommonError()),
+            UsageMonitorErrorState(errorMessage: "Something went wrong"),
           ],
           verify: (_) {
             verify(
@@ -325,7 +386,16 @@ void main() {
                 date: "2024-10-20",
                 type: "home",
               ),
-            ).thenThrow(SocketException(""));
+            ).thenThrow(
+              SocketException(""),
+            );
+            when(
+              () => mockErrorMessageMapper.mapErrorToMessage(
+                CommonError(),
+              ),
+            ).thenAnswer(
+              (_) => "Something went wrong",
+            );
           },
           act: (bloc) => bloc.add(
             DeleteUsageMonitorEvent(
@@ -333,7 +403,7 @@ void main() {
             ),
           ),
           expect: () => <UsageMonitorState>[
-            UsageMonitorErrorState(error: CommonError()),
+            UsageMonitorErrorState(errorMessage: "Something went wrong"),
           ],
           verify: (_) {
             verify(
