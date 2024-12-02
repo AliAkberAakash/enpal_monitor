@@ -7,6 +7,7 @@ import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_mon
 import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_monitor_bloc/usage_monitor_state.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
 import 'package:enpal_monitor/features/usage_monitor/util/usage_type.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:bloc_test/bloc_test.dart';
@@ -228,7 +229,14 @@ void main() {
           expect: () => <UsageMonitorState>[
             UsageMonitorLoadingState(),
             UsageMonitorLoadedState(
-              usageData: successResponse,
+              usageData: successResponse
+                  .map(
+                    (point) => FlSpot(
+                      point.timestamp.toDouble(),
+                      point.value.toDouble(),
+                    ),
+                  )
+                  .toList(),
             ),
           ],
           verify: (_) {

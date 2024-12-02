@@ -5,6 +5,7 @@ import 'package:enpal_monitor/features/usage_monitor/presentation/bloc/usage_mon
 import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
 import 'package:enpal_monitor/features/usage_monitor/util/constants.dart';
 import 'package:enpal_monitor/features/usage_monitor/util/usage_type.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
@@ -31,9 +32,18 @@ class UsageMonitorBloc extends Bloc<UsageMonitorEvent, UsageMonitorState> {
         date: dateString,
         type: type.name,
       );
+      final flSpots = response
+          .map(
+            (point) => FlSpot(
+              point.timestamp.toDouble(),
+              point.value.toDouble(),
+            ),
+          )
+          .toList();
+
       emit(
         UsageMonitorLoadedState(
-          usageData: response,
+          usageData: flSpots,
         ),
       );
     } catch (error) {

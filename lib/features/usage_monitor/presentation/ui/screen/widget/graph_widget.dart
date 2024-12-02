@@ -1,5 +1,4 @@
 import 'package:enpal_design_system/styles/util/extensions.dart';
-import 'package:enpal_monitor/features/usage_monitor/domain/entity/usage_monitor_entity.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/ui/screen/widget/x_axis_title_widget.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/ui/screen/widget/y_axis_title_widget.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -22,7 +21,7 @@ const lineGradient = LinearGradient(
 );
 
 class GraphWidget extends StatelessWidget {
-  final List<UsageMonitorEntity> points;
+  final List<FlSpot> points;
 
   const GraphWidget({
     super.key,
@@ -42,14 +41,7 @@ class GraphWidget extends StatelessWidget {
           LineChartBarData(
             isCurved: true,
             curveSmoothness: 0.5,
-            spots: points
-                .map(
-                  (point) => FlSpot(
-                    point.timestamp.toDouble(),
-                    point.value.toDouble(),
-                  ),
-                )
-                .toList(),
+            spots: points,
             barWidth: 6,
             gradient: lineGradient,
             preventCurveOverShooting: true,
@@ -85,7 +77,7 @@ class GraphWidget extends StatelessWidget {
           ),
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
-              reservedSize: 20,
+              reservedSize: 30,
               showTitles: true,
               interval: _interval,
               getTitlesWidget: (value, meta) => XAxisTitleWidget(
@@ -94,7 +86,7 @@ class GraphWidget extends StatelessWidget {
                 meta: meta,
               ),
               minIncluded: true,
-              maxIncluded: true,
+              maxIncluded: false,
             ),
           ),
           leftTitles: AxisTitles(

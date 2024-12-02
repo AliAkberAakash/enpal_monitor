@@ -22,7 +22,7 @@ class XAxisTitleWidget extends StatelessWidget {
         _getFormattedTime(value.toInt()),
         style: theme.textTheme.titleSmall!.copyWith(
           color: theme.colorScheme.primary,
-          fontSize: 10,
+          fontSize: 12,
         ),
       ),
     );

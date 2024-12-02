@@ -18,7 +18,7 @@ void main() {
         parentAxisSize: 100,
         axisPosition: 0,
         sideTitles: SideTitles(
-          reservedSize: 20,
+          reservedSize: 30,
           showTitles: true,
           interval: 100,
           getTitlesWidget: (value, meta) => XAxisTitleWidget(
@@ -52,7 +52,7 @@ void main() {
       expect(sideTitleWidgetFinder, findsOneWidget);
 
       final text = tester.widget<Text>(textFinder);
-      expect(text.style?.fontSize, 10);
+      expect(text.style?.fontSize, 12);
       expect(text.style?.color,
           theme.light().colorScheme.primary); // Default color scheme
     });
@@ -68,7 +68,7 @@ void main() {
         parentAxisSize: 100,
         axisPosition: 0,
         sideTitles: SideTitles(
-          reservedSize: 20,
+          reservedSize: 30,
           showTitles: true,
           interval: 100,
           getTitlesWidget: (value, meta) => XAxisTitleWidget(
@@ -102,7 +102,7 @@ void main() {
       expect(sideTitleWidgetFinder, findsOneWidget);
 
       final text = tester.widget<Text>(textFinder);
-      expect(text.style?.fontSize, 10);
+      expect(text.style?.fontSize, 12);
       expect(text.style?.color,
           theme.dark().colorScheme.primary); // Default color scheme
     });

@@ -1,6 +1,6 @@
-import 'package:enpal_monitor/features/usage_monitor/domain/entity/usage_monitor_entity.dart';
 import 'package:enpal_monitor/features/usage_monitor/presentation/error/error.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 sealed class UsageMonitorState extends Equatable {
   @override
@@ -10,7 +10,7 @@ sealed class UsageMonitorState extends Equatable {
 class UsageMonitorLoadingState extends UsageMonitorState {}
 
 class UsageMonitorLoadedState extends UsageMonitorState {
-  final List<UsageMonitorEntity> usageData;
+  final List<FlSpot> usageData;
 
   UsageMonitorLoadedState({required this.usageData});
 
