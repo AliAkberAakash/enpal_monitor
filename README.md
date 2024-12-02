@@ -95,7 +95,7 @@ The architecture for the features consists of the following layers:
 The application was developed in a very short time, so there are some places which can be improved.
 - There are a few inconsistencies throughout the project.
 - A collection-document based local-data store would have been a better choice, due to time constraints I used sqflite.
-- More unit tests could be added
+- Isolates could be used to process data mapping
 
 ## 5. Final Notes
 
