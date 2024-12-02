@@ -80,7 +80,6 @@ The architecture for the features consists of the following layers:
 - **BLoCs**: Manage the presentation logic and interacts with the domain layer.
 
 ### Domain Layer
-- 
 - **Entities**: Represent the core data models and business entities.
 - **Repositories**: Defining the Repositories interface for the data layer to implement.
 
