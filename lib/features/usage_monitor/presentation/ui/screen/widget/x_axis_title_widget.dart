@@ -30,6 +30,7 @@ class XAxisTitleWidget extends StatelessWidget {
 
   String _getFormattedTime(int unixTimeStamp) {
     final dateTime = DateTime.fromMillisecondsSinceEpoch(unixTimeStamp * 1000);
-    return "${dateTime.hour}:00";
+    final timeString = "${dateTime.hour.toString().padLeft(2, '0')}:00";
+    return timeString;
   }
 }
